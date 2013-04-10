@@ -8,8 +8,7 @@ require 'sinatra/json'
 require 'active_record'
 require 'sinatra/activerecord'
 require './app/models/base_ad.rb'
-require './app/models/offered_ad.rb'
-require './app/models/job_category.rb'
+Dir["./app/models/*.rb"].each { |f| require f }
 
 set :views, Proc.new { File.join(root, "app", "views") }
 #set :database, YAML::load(IO.read('config/database.yml'))
