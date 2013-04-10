@@ -9,6 +9,8 @@ require 'active_record'
 require './base_ad.rb'
 require './offered_ad.rb'
 
+set :views, Proc.new { File.join(root, "app", "views") }
+
 ActiveRecord::Base.configurations = YAML::load(IO.read('db/database.yml'))
 ActiveRecord::Base.establish_connection(development? ? "development" : "production")
 
