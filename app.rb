@@ -18,7 +18,13 @@ get '/' do
 end
 
 get '/d/offered_ads' do
-  json OfferedAd.all.map(&:to_h)
+  page = params[:page].try(:to_i)
+  page = 0 if page < 0
+
+  per_page = params[:perPage].try(:to_i)
+  per_page = 25 if per_page < 1
+  
+  json OfferedAd.order("created_at desc").offset(page * per_page).limit(per_page).all.map(&:to_h)
 end
 
 helpers do
