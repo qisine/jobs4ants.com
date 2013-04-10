@@ -9,10 +9,7 @@ _.extend(window.App, {
 Backbone.View.prototype.close = function() {
   this.remove();
   this.off();
-
   this.onClose && this.onClose();
 }
-
-//_.templateSettings.variable = "wa";
 
 App.init();
