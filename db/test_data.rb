@@ -14,7 +14,7 @@ def start_producing
 end
 
 def create_offered_ads
-  30.times.each do
+  34.times.each do
     FactoryGirl.create(:offered_ad)
   end
 end
