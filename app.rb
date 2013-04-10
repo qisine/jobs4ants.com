@@ -19,12 +19,13 @@ end
 
 get '/d/offered_ads' do
   page = params[:page].try(:to_i)
-  page = 0 if page < 0
+  page = 1 if page < 1
 
   per_page = params[:perPage].try(:to_i)
   per_page = 25 if per_page < 1
   
-  json OfferedAd.order("created_at desc").offset(page * per_page).limit(per_page).all.map(&:to_h)
+  models = OfferedAd.order("created_at desc").offset((page-1) * per_page).limit(per_page).map(&:to_h)
+  json({ page: page, perPage: per_page, total: OfferedAd.count, models: models })
 end
 
 helpers do
