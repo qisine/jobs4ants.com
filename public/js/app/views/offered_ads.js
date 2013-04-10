@@ -9,7 +9,7 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template(this.collection));
+    this.$el.html(this.template({collection: this.collection}));
     return this;
   },
 

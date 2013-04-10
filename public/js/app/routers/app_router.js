@@ -7,7 +7,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
 
   offeredAds: function() {
     var ads = new App.Collections.OfferedAds;
-    App.viewManager.add(new App.Views.OfferedAds({collection: ads.fetch() }));
-    console.log("foo!");
+    var adsView = new App.Views.OfferedAds({collection: ads.fetch() });
+    App.viewManager.add(adsView);
+    adsView.render();
   }
 });

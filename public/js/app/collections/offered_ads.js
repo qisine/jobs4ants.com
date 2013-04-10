@@ -1,7 +1,7 @@
 window.App = window.App || { Collections: {}, Models: {}, Routers: {}, Views: {}, };
 App.Collections.OfferedAds = Backbone.Collection.extend({
   model: App.Models.OfferedAd,
-  url: 'http://0.0.0.0:3000/public/offered_ads',
+  url: '/d/offered_ads',
 
   initialize: function() {
     _.bindAll(this, "parse", "fetch", "pageInfo", "nextPage", "previousPage");
