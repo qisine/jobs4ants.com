@@ -7,6 +7,14 @@ gem "activerecord"
 gem "sinatra-activerecord"
 gem "ejs"
 gem "pg"
-gem "rspec"
-gem "faker"
-gem "factory_girl"
+
+group :test do
+  gem "rspec"
+end
+
+group :development do
+  gem "faker"
+  gem "factory_girl"
+  gem 'jasmine'
+  gem "debugger"
+end
