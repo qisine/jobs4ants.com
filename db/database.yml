@@ -1,0 +1,29 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: antworker_development
+  pool: 5
+  username: antworker
+  password: antworker
+  port: 5432
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: antworker_test
+  pool: 5
+  username: antworker
+  password: antworker
+  port: 5432
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: antworker_production
+  pool: 5
+  username: antworker
+  password: antworker
+  port: 5432
+  host: localhost
