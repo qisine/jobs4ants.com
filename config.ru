@@ -1,4 +1,7 @@
-require 'sinatra'
+require 'rubygems'
+require 'bundler'
+
+Bundler.require
  
 Sinatra::Base.set(run: false) #, :env => :production)
  
