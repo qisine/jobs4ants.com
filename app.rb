@@ -6,13 +6,13 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/json'
 require 'active_record'
-require './base_ad.rb'
-require './offered_ad.rb'
+require 'sinatra/activerecord'
+require './app/models/base_ad.rb'
+require './app/models/offered_ad.rb'
+require './app/models/job_category.rb'
 
 set :views, Proc.new { File.join(root, "app", "views") }
-
-ActiveRecord::Base.configurations = YAML::load(IO.read('db/database.yml'))
-ActiveRecord::Base.establish_connection(development? ? "development" : "production")
+#set :database, YAML::load(IO.read('config/database.yml'))
 
 get '/' do
   erb :index
