@@ -11,21 +11,21 @@ require './app/models/base_ad.rb'
 Dir["./app/models/*.rb"].each { |f| require f }
 
 set :views, Proc.new { File.join(root, "app", "views") }
-#set :database, YAML::load(IO.read('config/database.yml'))
 
 get '/' do
   erb :index
 end
 
 get '/d/offered_ads' do
-  page = params[:page].try(:to_i)
-  page = 1 if page < 1
-
-  per_page = params[:perPage].try(:to_i)
-  per_page = 25 if per_page < 1
-  
-  models = OfferedAd.order("created_at desc").offset((page-1) * per_page).limit(per_page).map(&:to_h)
-  json({ page: page, perPage: per_page, total: OfferedAd.count, models: models })
+  page = params[:page]
+  per_page = params[:perPage] || 25
+  per_page = per_page.to_i rescue 25
+  split = per_page / 2
+   
+  offered_ads = OfferedAd.paginate(page, per_page - split).all 
+  ex_ads = ExternalOfferedAd.paginate(page, split).all
+  models = (offered_ads + ex_ads).sort { |a,b| a.created_at <=> b.created_at }.reverse.map(&:to_h)
+  json({ page: page, perPage: per_page, total: OfferedAd.count + ExternalOfferedAd.count, models: models })
 end
 
 helpers do
