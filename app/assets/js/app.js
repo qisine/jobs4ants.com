@@ -1,3 +1,10 @@
+//= require ./app/init
+//= require ./lib/underscore
+//= require ./lib/backbone
+//= require ./lib/view_manager
+//= require_tree ./app/templates
+//= require_tree ./app
+
 _.extend(window.App, {
   init: function() {
     new App.Routers.AppRouter;

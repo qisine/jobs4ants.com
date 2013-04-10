@@ -1,4 +1,3 @@
-window.App = window.App || {};
 window.App.viewManager = (function() {
   function ViewManager() {
     this.views = {};

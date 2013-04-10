@@ -1,4 +1,5 @@
-window.App = window.App || { Collections: {}, Models: {}, Routers: {}, Views: {}, };
+//= require ../models/offered_ad
+
 App.Collections.OfferedAds = Backbone.Collection.extend({
   model: App.Models.OfferedAd,
   url: '/d/offered_ads',
@@ -21,11 +22,10 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
       success = options.success;
       options.success = function(response) {
         collection.trigger("fetched");
-        //collection.trigger("reset");
         success(response);
       }
     } else {
-      options.success = function() { collection.trigger("reset"); }
+      options.reset = true;
     }
     return Backbone.Collection.prototype.fetch.call(this, options) ;
   },

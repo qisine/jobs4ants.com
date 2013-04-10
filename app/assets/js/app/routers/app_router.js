@@ -1,8 +1,12 @@
-window.App = window.App || { Collections: {}, Models: {}, Routers: {}, Views: {}, };
+//= require ../views/offered_ads
+
 App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "":         "offeredAds",
     offeredAds: "offeredAds",
+  },
+
+  initialize: function() {
   },
 
   offeredAds: function() {

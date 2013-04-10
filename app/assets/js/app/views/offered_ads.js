@@ -1,8 +1,9 @@
-window.App = window.App || { Collections: {}, Models: {}, Routers: {}, Views: {}, };
+//= require ./paginator
+
 App.Views.OfferedAds = Backbone.View.extend({
   type: "indexOfferedAds",
   tmpl: JST["js/app/templates/offered_ads/index"],
-  el: "#app",
+  el: "#appBody",
 
   initialize: function() {
     _.bindAll(this, "render");
@@ -11,7 +12,6 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   render: function() {
-    console.log("in rndr");
     this.$el.html(this.tmpl({models: this.collection.models }));
     this.paginator = new App.Views.Paginator({collection: this.collection});
     this.$el.append(this.paginator.render());

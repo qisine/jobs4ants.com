@@ -1,3 +1,5 @@
+//= require ../collections/offered_ads
+
 App.Views.Paginator = Backbone.View.extend({
   type: "paginator",
   tmpl: JST["js/app/templates/shared/paginator"],
