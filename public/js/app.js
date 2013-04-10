@@ -13,4 +13,6 @@ Backbone.View.prototype.close = function() {
   this.onClose && this.onClose();
 }
 
+_.templateSettings.variable = "wa";
+
 App.init();
