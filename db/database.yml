@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: antworker_development
-  pool: 5
+  pool: 50
   username: antworker
   password: antworker
   port: 5432
@@ -12,7 +12,7 @@ test:
   adapter: postgresql
   encoding: unicode
   database: antworker_test
-  pool: 5
+  pool: 50
   username: antworker
   password: antworker
   port: 5432
@@ -22,7 +22,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: antworker_production
-  pool: 5
+  pool: 50
   username: antworker
   password: antworker
   port: 5432
