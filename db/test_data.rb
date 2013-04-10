@@ -6,6 +6,9 @@ unless Object.const_defined?('FactoryGirl')
 end
 
 def start_producing
+  OfferedAd.delete_all
+  ExternalOfferedAd.delete_all
+
   create_offered_ads
   create_external_ads
 end
