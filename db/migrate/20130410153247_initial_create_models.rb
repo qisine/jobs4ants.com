@@ -10,6 +10,7 @@ class InitialCreateModels < ActiveRecord::Migration
       t.string   "link"
       t.string   "source"
       t.integer  "job_category_id"
+      t.timestamps
     end
 
     add_index "base_ads", "job_category_id"
@@ -18,6 +19,7 @@ class InitialCreateModels < ActiveRecord::Migration
     create_table "job_categories" do |t|
       t.string   "name"
       t.string   "code"
+      t.timestamps
     end
   end
 
