@@ -1,7 +1,7 @@
 window.App = window.App || { Collections: {}, Models: {}, Routers: {}, Views: {}, };
 App.Views.OfferedAds = Backbone.View.extend({
   type: "indexOfferedAds",
-  tmpl: JST["offeredAds"],
+  tmpl: JST["js/app/templates/offered_ads/index"],
   el: "#app",
 
   initialize: function() {
@@ -9,7 +9,7 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(_.template(this.tmpl)({c: this.collection.models }));
+    this.$el.html(this.tmpl({c: this.collection.models }));
     return this;
   },
 
