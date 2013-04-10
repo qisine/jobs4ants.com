@@ -5,15 +5,21 @@ App.Views.OfferedAds = Backbone.View.extend({
   el: "#app",
 
   initialize: function() {
+    _.bindAll(this, "render");
     this.collection = this.options.collection;
+    this.collection.on("reset", this.render);
   },
 
   render: function() {
-    this.$el.html(this.tmpl({c: this.collection.models }));
+    console.log("in rndr");
+    this.$el.html(this.tmpl({models: this.collection.models }));
+    this.paginator = new App.Views.Paginator({collection: this.collection});
+    this.$el.append(this.paginator.render());
     return this;
   },
 
-  close: function() {
-    $el.remove("#" + type);
+  onClose: function() {
+    this.collection.off;
+    this.paginator.close();
   }
 });

@@ -16,13 +16,16 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
     options.data = (options.data || {});
     _.defaults(options.data, { page: this.page, perPage: this.perPage });
 
-    var that = this;
+    var collection = this;
     if(options.success) {
       success = options.success;
       options.success = function(response) {
-        that.trigger("fetched");
+        collection.trigger("fetched");
+        //collection.trigger("reset");
         success(response);
       }
+    } else {
+      options.success = function() { collection.trigger("reset"); }
     }
     return Backbone.Collection.prototype.fetch.call(this, options) ;
   },
@@ -51,7 +54,7 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
   },
 
   goTo: function(page) {
-    if(page > this.pageInfo().pages + 1 || page < 1) return;
+    if(page > this.pageInfo().pages  || page < 1) return;
     this.page = page;
     return this.fetch();
   },
