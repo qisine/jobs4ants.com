@@ -1,10 +1,7 @@
 window.JST = {};
-window.JST.offeredAds = _.template(
+window.JST.offeredAds = 
   "<div id='indexOfferedAds'>" +
-  "<% _.each(collection, function(ad) { %>" +
-    "<div class='ad'>" +
-      "<div><%= ad.name %></div>" +
-    "</div>" +
-  "<% }) %>" +
-  "</div>"
-);
+  "<% for(var i=0; i < wa.c.length; i++) { %>" +
+    "<div><%= wa.c[i].get('title') %></div>" +
+  "<% } %>" +
+  "</div>";
