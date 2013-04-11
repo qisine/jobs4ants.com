@@ -17,36 +17,30 @@ get '/' do
 end
 
 get '/d/offered-ads' do
-  page_info = get_pagination_info(params)
+  params_ = parse_params(params)
 
-  offered_ads = OfferedAd.paginate(page_info[:page], page_info[:per_page] - page_info[:split]).all 
-  ex_ads = ExternalOfferedAd.paginate(page_info[:page], page_info[:split]).all
-  models = (offered_ads + ex_ads).sort { |a,b| a.created_at <=> b.created_at }.reverse.map(&:to_h)
-  json({  page: page_info[:page],
-          perPage: page_info[:per_page],
-          total: OfferedAd.count + ExternalOfferedAd.count,
+  ads = OfferedAd.paginate(params_[:page], params_[:per_page]).search(params_[:kwds])
+  models = ads.sort { |a,b| a.created_at <=> b.created_at }.reverse.map(&:to_h)
+  json({  page: params_[:page],
+          perPage: params_[:per_page],
+          total: OfferedAd.count,
           models: models })
 end
 
-get '/d/offered-ads/search' do
-  kwd = params[:kwd] || ""
-  page_info = get_pagination_info(params)
-end
-
 get '/d/work-locations/search' do
-  kwd = params[:kwd] || ""
+  kwds = params[:kwds] || ""
 
-  locs = WorkLocation.search(kwd).all
+  locs = WorkLocation.search(kwds).all
   json(locations: locs)
 end
 
 helpers do
-  def get_pagination_info(p)
+  def parse_params(p)
     info = {}
     info[:page] = p[:page]
     per_page = p[:perPage] || 25
     info[:per_page] = per_page.to_i rescue 25
-    info[:split] = info[:per_page] / 2
+    info[:kwds] = p[:kwds]
     info
   end
 end
