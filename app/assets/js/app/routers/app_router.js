@@ -12,15 +12,6 @@ App.Routers.AppRouter = Backbone.Router.extend({
   offeredAds: function() {
     var sbView = new App.Views.SearchBar;
     App.viewManager.add(sbView).render();
-    var ads = new App.Collections.OfferedAds;
-    ads.fetch({
-      success: function(resp, status, xhr) {
-        var adsView = new App.Views.OfferedAds({ collection: ads });
-        App.viewManager.add(adsView).render();
-      },
-      error: function() {
-        console.log("error!!");
-      }
-    });
+    new App.Views.OfferedAds;
   }
 });
