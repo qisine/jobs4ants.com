@@ -46,7 +46,7 @@ helpers do
     info[:page] = p[:page]
     per_page = p[:perPage] || 25
     info[:per_page] = per_page.to_i rescue 25
-    info[:split] = per_page / 2
+    info[:split] = info[:per_page] / 2
     info
   end
 end
