@@ -1,0 +1,27 @@
+AddIndexesOnWorkLocations	./db/migrate/20130411115846_add_indexes_on_work_locations.rb	/^class AddIndexesOnWorkLocations < ActiveRecord::Migration$/;"	c
+BaseAd	./app/models/base_ad.rb	/^class BaseAd < ActiveRecord::Base$/;"	c
+CreateWorkLocationIdOnBaseAds	./db/migrate/20130411114331_create_work_location_id_on_base_ads.rb	/^class CreateWorkLocationIdOnBaseAds < ActiveRecord::Migration$/;"	c
+CreateWorkLocations	./db/migrate/20130411113958_create_work_locations.rb	/^class CreateWorkLocations < ActiveRecord::Migration$/;"	c
+ExternalOfferedAd	./app/models/external_offered_ad.rb	/^class ExternalOfferedAd < BaseAd$/;"	c
+InitialCreateModels	./db/migrate/20130410153247_initial_create_models.rb	/^class InitialCreateModels < ActiveRecord::Migration$/;"	c
+JobCategory	./app/models/job_category.rb	/^class JobCategory < ActiveRecord::Base$/;"	c
+OfferedAd	./app/models/offered_ad.rb	/^class OfferedAd < BaseAd$/;"	c
+WorkLocation	./app/models/work_location.rb	/^class WorkLocation < ActiveRecord::Base$/;"	c
+app	./spec/spec_helper.rb	/^def app$/;"	f
+change	./db/migrate/20130411113958_create_work_locations.rb	/^  def change  $/;"	f	class:CreateWorkLocations
+change	./db/migrate/20130411115846_add_indexes_on_work_locations.rb	/^  def change$/;"	f	class:AddIndexesOnWorkLocations
+create_external_ads	./db/test_data.rb	/^def create_external_ads$/;"	f
+create_job_categories	./db/seed.rb	/^def create_job_categories$/;"	f
+create_offered_ads	./db/test_data.rb	/^def create_offered_ads$/;"	f
+create_work_locations	./db/seed.rb	/^def create_work_locations$/;"	f
+down	./db/migrate/20130410153247_initial_create_models.rb	/^  def down$/;"	f
+down	./db/migrate/20130411114331_create_work_location_id_on_base_ads.rb	/^  def down$/;"	f	class:CreateWorkLocationIdOnBaseAds
+i18n_index	./app/models/job_category.rb	/^  def i18n_index$/;"	f	class:JobCategory
+parse_params	./app.rb	/^  def parse_params(p)$/;"	f
+start_producing	./db/test_data.rb	/^def start_producing$/;"	f
+to_h	./app/models/base_ad.rb	/^  def to_h$/;"	f	class:BaseAd
+to_h	./app/models/external_offered_ad.rb	/^  def to_h$/;"	f	class:ExternalOfferedAd
+to_h	./app/models/offered_ad.rb	/^  def to_h$/;"	f	class:OfferedAd
+to_h	./app/models/work_location.rb	/^  def to_h$/;"	f	class:WorkLocation
+up	./db/migrate/20130410153247_initial_create_models.rb	/^  def up$/;"	f	class:InitialCreateModels
+up	./db/migrate/20130411114331_create_work_location_id_on_base_ads.rb	/^  def up$/;"	f	class:CreateWorkLocationIdOnBaseAds
