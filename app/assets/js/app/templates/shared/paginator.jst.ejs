@@ -1,15 +1,15 @@
 <div id="paginator">
   <% if(info.pages > 1) { %>
-    <a id="pPrevious" class='<%= info.prev ? "" : "disabled" %>' href="#" accesskey="P">
+    <a id="p-previous" class='<%= info.prev ? "" : "disabled" %>' href="#" accesskey="P">
       <span class="accesskey">P</span>revious
     </a>
 
-      <select id="pSelection" accesskey="J">
+      <select id="p-selection" accesskey="J">
       <% for(i=1;i<=info.pages;i++) { %>
         <option <%= info.page === i ? "selected" : "" %> value=<%= i %>>Page #<%= i %></option>
       <% } %>
       </select> 
 
-    <a id="pNext" class='<%= info.next ? "" : "disabled" %>' href="#" accesskey="N"><span class="accesskey">N</span>ext</a>
+    <a id="p-next" class='<%= info.next ? "" : "disabled" %>' href="#" accesskey="N"><span class="accesskey">N</span>ext</a>
   <% } %>
 </div>

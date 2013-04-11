@@ -4,9 +4,9 @@ App.Views.Paginator = Backbone.View.extend({
   type: "paginator",
   tmpl: JST["js/app/templates/shared/paginator"],
   events: {
-    "click a#pNext": "next",
-    "click a#pPrevious": "previous",
-    "change select#pSelection": "goTo",
+    "click a#p-next": "next",
+    "click a#p-previous": "previous",
+    "change select#p-selection": "goTo",
   },
   tagName: "div",
 
