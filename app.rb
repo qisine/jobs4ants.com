@@ -16,7 +16,7 @@ get '/' do
   erb :index
 end
 
-get '/d/offered_ads' do
+get '/d/offered-ads' do
   page = params[:page]
   per_page = params[:perPage] || 25
   per_page = per_page.to_i rescue 25
