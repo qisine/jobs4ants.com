@@ -2,7 +2,6 @@ unless Object.const_defined?('FactoryGirl')
   require 'factory_girl'
   require 'faker'
   FactoryGirl.find_definitions
-  #require File.join(".", 'spec', 'factories.rb')
 end
 
 def start_producing
