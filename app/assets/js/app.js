@@ -1,5 +1,6 @@
 //= require ./app/init
 //= require ./lib/underscore
+//= require ./lib/jquery-1.9.1
 //= require ./lib/backbone
 //= require ./lib/view_manager
 //= require_tree ./app/templates
@@ -7,8 +8,10 @@
 
 _.extend(window.App, {
   init: function() {
-    new App.Routers.AppRouter;
-    Backbone.history.start();
+    $(function() {
+      new App.Routers.AppRouter;
+      Backbone.history.start();
+    });
   },
   dispatcher: _.extend({}, Backbone.Events),
 });
