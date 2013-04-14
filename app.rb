@@ -19,11 +19,15 @@ end
 get '/d/offered-ads' do
   params_ = parse_params(params)
 
-  ads = OfferedAd.paginate(params_[:page], params_[:per_page]).search(params_[:kwds])
+  ads = OfferedAd
+  ads = ads.search(params_[:kwds]) unless params_[:kwds].try(:empty?)
+  search_count = ads.count
+  ads = ads.paginate(params_[:page], params_[:per_page]) 
   models = ads.sort { |a,b| a.created_at <=> b.created_at }.reverse.map(&:to_h)
+
   json({  page: params_[:page],
           perPage: params_[:per_page],
-          total: OfferedAd.count,
+          total: search_count,
           models: models })
 end
 
@@ -40,7 +44,7 @@ helpers do
     info[:page] = p[:page]
     per_page = p[:perPage] || 25
     info[:per_page] = per_page.to_i rescue 25
-    info[:kwds] = p[:kwds]
+    info[:kwds] = p[:kwds].try(:strip)
     info
   end
 end

@@ -11,7 +11,8 @@ class BaseAd < ActiveRecord::Base
 
     per_page = per_page.to_i rescue 25
     per_page = 25 if per_page < 1
-
+    
+    return scoped if per_page <= self.count
     order("created_at desc").offset((page-1) * per_page).limit(per_page)
   end
 
