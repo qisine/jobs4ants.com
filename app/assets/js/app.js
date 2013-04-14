@@ -17,7 +17,7 @@ _.extend(window.App, {
 });
 
 Backbone.View.prototype.close = function() {
-  this.remove();
+  $(this).children().remove();
   this.off();
   this.onClose && this.onClose();
 }
