@@ -25,10 +25,10 @@ class BaseAd < ActiveRecord::Base
 
   def to_h
     h = {}
-    [:type, :body, :title].each do |e|
+    [:id, :type, :body, :title].each do |e|
       h[e] = (self.attributes[e.to_s] || "").to_s
     end
-    h[:job_category] = job_category.name
+    h[:job_category] = job_category.to_h
     h[:work_location] = work_location.to_h
     h
   end

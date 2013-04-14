@@ -12,7 +12,7 @@ class WorkLocation < ActiveRecord::Base
 
   def to_h
     h = {}
-    [:zip, :city, :city_transliterated, :canton].each do |e|
+    [:id, :zip, :city, :city_transliterated, :canton].each do |e|
       h[e] = (self.attributes[e.to_s] || "").to_s
     end
     h
