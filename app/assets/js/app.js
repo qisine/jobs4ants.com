@@ -3,6 +3,7 @@
 //= require ./lib/jquery-1.9.1
 //= require ./lib/backbone
 //= require ./lib/view_manager
+//= require ./lib/cache.js
 //= require_tree ./app/templates
 //= require_tree ./app
 
