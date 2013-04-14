@@ -3,7 +3,7 @@ App.Views.SearchBar = Backbone.View.extend({
   tmpl: JST["js/app/templates/shared/search_bar"],
   el: "#search-bar",
   events: {
-    "click input[type=submit]": "search",
+    "click button": "search",
   },
 
   initialize: function() {
