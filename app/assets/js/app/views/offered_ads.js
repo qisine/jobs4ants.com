@@ -3,26 +3,31 @@
 App.Views.OfferedAds = Backbone.View.extend({
   type: "indexOfferedAds",
   tmpl: JST["js/app/templates/offered_ads/index"],
-  el: "#app-body",
+  el: "#ads-body",
 
   initialize: function() {
     _.bindAll(this, "render");
+    this.kwds = $.trim(this.options.kwds);
+    this.page = parseInt(this.options.page, 10) || 1;
+
     if(!this.options.collection) {
-      this.fetchCollection(this.options.kwds);
+      this.fetchCollection(this.options.kwds, this.options.page);
     } else {
       this.collection = this.options.collection;
       this.collection.on("reset", this.render);
     }
   },
 
-  fetchCollection: function(kwds) {
-    var data = {};
-    if(kwds = $.trim(kwds)) data["kwds"] = kwds;
+  fetchCollection: function() {
+    var data = { page: this.page };
+    if(this.kwds) data["kwds"] = this.kwds;
     this.collection = c = new App.Collections.OfferedAds;
     c.on("reset", this.render);
     c.fetch({
       data: data,
-      success: function(resp, status, xhr) { },
+      success: function(resp, status, xhr) {
+        App.dispatcher.trigger("offeredAds:search:success", data);
+      },
       error: function(error) {
         console.log("error!", error);
         App.viewManager.add(new App.Views.Notification({message: "囧，错误！", level: "error"})).render();

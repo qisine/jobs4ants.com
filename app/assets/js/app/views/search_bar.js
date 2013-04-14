@@ -18,9 +18,10 @@ App.Views.SearchBar = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.append(this.tmpl());
+    this.$el.html(this.tmpl());
   },
 
   onClose: function() {
+    this.undelegateEvents();
   }
 });
