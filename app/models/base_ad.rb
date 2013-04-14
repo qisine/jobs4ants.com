@@ -17,7 +17,9 @@ class BaseAd < ActiveRecord::Base
 
   scope :search, ->(kwd) do
     kwd = kwd || ""
-    where("title ILIKE '%?%' OR body ILIKE '%?%' OR city ILIKE '%?%' OR city_transliterated ILIKE '%?%'", *([kwd]*4)) 
+    joins("LEFT JOIN work_locations ON work_locations.id = base_ads.work_location_id")
+    .joins("LEFT JOIN job_categories ON job_categories.id = base_ads.job_category_id")
+    .where("title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwd}%"]*5))
   end
 
   def to_h
