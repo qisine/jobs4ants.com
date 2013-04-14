@@ -11,6 +11,11 @@ App.Routers.AppRouter = Backbone.Router.extend({
     _.bindAll(this, "_navigateTo");
     App.dispatcher.on("offeredAds:search:success", this._navigateTo);
     App.dispatcher.on("testy", function() { console.log("hey") });
+
+    var pb = new App.Views.ProgressBar({ message: "等下。。。" });
+    pb.render();
+    this._addBasicViews();
+    pb.close();
   },
 
   offeredAds: function(page) {
@@ -19,9 +24,12 @@ App.Routers.AppRouter = Backbone.Router.extend({
 
   searchOfferedAds: function(kwds, page) {
     if(kwds) kwds = $.trim(decodeURIComponent(kwds));
-    var sbView = new App.Views.SearchBar;
-    App.viewManager.add(sbView).render();
     new App.Views.OfferedAds({kwds: kwds, page: page});
+  },
+
+  _addBasicViews: function() {
+    App.viewManager.add(new App.Views.SearchBar).render();
+    App.viewManager.add(new App.Views.JobCategories).render();
   },
 
   _navigateTo: function(data) {
