@@ -17,6 +17,7 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
     options.data = (options.data || {});
     _.defaults(options.data, { page: this.page, perPage: this.perPage });
 
+    options.reset = true;
     var collection = this;
     if(options.success) {
       success = options.success;
@@ -25,7 +26,6 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
         success(response);
       }
     } else {
-      options.reset = true;
     }
     return Backbone.Collection.prototype.fetch.call(this, options) ;
   },
