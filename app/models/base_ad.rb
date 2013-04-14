@@ -7,7 +7,7 @@ class BaseAd < ActiveRecord::Base
 
   scope :paginate, ->(page=1, per_page=25) do
     page = page.to_i rescue 1
-    page = 1 if page < 1
+    page = 1 if !page.between?(1, 9999)
 
     per_page = per_page.to_i rescue 25
     per_page = 25 if per_page < 1
