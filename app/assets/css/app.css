@@ -16,13 +16,15 @@ header, footer, #notification-area, #app-body { margin: 1em }
 
 #progress-bar {
   position:absolute;
-  top: 0;
-  left: 36%;
+  top: 50%;
+  left: 50%;
   width: 20%;
+  height: 6%;
   padding: 2%;
+  margin: -5% 0% 0% -14%;
   border: 1px solid #AAA;
   border-top: 10px solid #AAA;
   background-color: #FFF;
-  font-size:1em;
+  font-size: 1em;
   text-align: center;
 }
