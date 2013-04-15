@@ -6,9 +6,18 @@ App.Views.OfferedAds = Backbone.View.extend({
   el: "#ads-body",
 
   initialize: function() {
-    _.bindAll(this, "render");
-    this.kwds = $.trim(this.options.kwds);
-    this.page = parseInt(this.options.page, 10) || 1;
+    _.bindAll(this, "render", "_addOptions");
+    this._addOptions(this.options);
+    var self = this;
+
+    App.dispatcher.on("search:submit", function(params) {
+      self._addOptions(params);
+      self.fetchCollection();
+    });
+    App.dispatcher.on("filter:submit", function(params) {
+      self._addOptions(params);
+      self.fetchCollection();
+    });
 
     if(!this.options.collection) {
       this.fetchCollection(this.options.kwds, this.options.page);
@@ -19,9 +28,8 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   fetchCollection: function() {
-    var data = { page: this.page };
-    if(this.kwds) data["kwds"] = this.kwds;
-    this.collection = c = new App.Collections.OfferedAds;
+    var data = { page: this.page , kwds: this.kwds, cats: this.cats};
+    var c = this.collection = new App.Collections.OfferedAds;
     c.on("reset", this.render);
     c.fetch({
       data: data,
@@ -45,5 +53,11 @@ App.Views.OfferedAds = Backbone.View.extend({
   onClose: function() {
     this.collection.off;
     this.paginator.close();
-  }
+  },
+
+  _addOptions: function(opts) {
+    _.extend(this, opts);
+    if(this.kwds) this.kwds = $.trim(this.kwds);
+    if(this.page) this.page = parseInt(this.options.page, 10) || 1;
+  },
 });

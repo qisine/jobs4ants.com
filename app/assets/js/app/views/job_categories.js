@@ -3,7 +3,7 @@ App.Views.JobCategories = Backbone.View.extend({
   tmpl: JST["js/app/templates/shared/job_categories"],
   el: "#job-categories",
   events: {
-    "click button": "search",
+    "click button": "filter",
   },
 
   initialize: function() {
@@ -30,6 +30,10 @@ App.Views.JobCategories = Backbone.View.extend({
 
   filter: function(ev) {
     ev.preventDefault();
+
+    var selected = this.$el.find("input:checked").map(function() { return this.value });
+
+    App.dispatcher.trigger("filter:submit", { cats: $.makeArray(selected) });
   },
 
   render: function() {

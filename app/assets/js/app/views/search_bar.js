@@ -13,8 +13,7 @@ App.Views.SearchBar = Backbone.View.extend({
     ev.preventDefault();
     var kwds = this.$el.find("#general-kwds").val();
 
-    App.dispatcher.trigger("search:submit");
-    App.viewManager.add(new App.Views.OfferedAds({kwds: kwds}));
+    App.dispatcher.trigger("search:submit", {kwds: kwds});
   },
 
   render: function() {
