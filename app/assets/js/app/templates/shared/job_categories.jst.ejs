@@ -1,2 +1,10 @@
 <form>
+  <ul style="unstyled">
+  <% for(var i=0;i < models.length;i++) { %>
+    <li>
+      <label><input type="checkbox" value="<%= models[i].get('id') %>" name="job-categories" />
+      <%= models[i].get('name') %></label>
+    </li>
+  <% } %>
+  </ul>
 </form>

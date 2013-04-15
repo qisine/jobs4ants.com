@@ -38,6 +38,10 @@ get '/d/work-locations/search' do
   json(locations: locs)
 end
 
+get '/d/job-categories' do
+  json(JobCategory.all.map(&:to_h))
+end
+
 helpers do
   def parse_params(p)
     info = {}
