@@ -1,7 +1,7 @@
 //= require ../models/job_category
 
 App.Collections.JobCategories = Backbone.Collection.extend({
-  model: App.Models.OfferedAd,
+  model: App.Models.JobCategory,
   url: 'd/job-categories',
 
   initialize: function() {
