@@ -37,7 +37,7 @@ end
 
 get '/d/offered-ads/:id' do
   begin
-    json(OfferedAd.published.find(params[:id]).to_h)
+    json(OfferedAd.where(published: true).find(params[:id]).to_h)
   rescue ActiveRecord::RecordNotFound
     status 404
     json({error: "couldn't find requested record"})
