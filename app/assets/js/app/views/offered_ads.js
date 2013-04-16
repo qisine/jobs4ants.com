@@ -10,35 +10,37 @@ App.Views.OfferedAds = Backbone.View.extend({
     this._addOptions(this.options);
     var self = this;
 
-    App.dispatcher.on("search:submit", function(params) {
-      self._addOptions(params);
-      self.fetchCollection();
-    });
-    App.dispatcher.on("filter:submit", function(params) {
+    App.dispatcher.on("search:submit filter:submit", function(params) {
       self._addOptions(params);
       self.fetchCollection();
     });
 
-    if(!this.options.collection) {
-      this.fetchCollection(this.options.kwds, this.options.page);
-    } else {
-      this.collection = this.options.collection;
-      this.collection.on("reset", this.render);
-    }
+    this.fetchCollection(this.options.kwds, this.options.page);
   },
 
   fetchCollection: function() {
     var data = { page: this.page , kwds: this.kwds, cats: this.cats};
-    var c = this.collection = new App.Collections.OfferedAds;
-    c.on("reset", this.render);
+    var c = this.collection = new App.Collections.OfferedAds(data);
+    var self = this;
+    c.on("paginate:success", function(data) {
+      _.extend(self, data);
+    console.log(data);
+      App.dispatcher.trigger("reroute", data);
+      self.render();
+    });
+    c.on("paginate:error", function(error) {
+      console.log("error!", error);
+      App.dispatcher.trigger("error:load", error);
+    });
     c.fetch({
       data: data,
       success: function(resp, status, xhr) {
-        App.dispatcher.trigger("offeredAds:search:success", data);
+        App.dispatcher.trigger("reroute", data);
+        self.render();
       },
       error: function(error) {
         console.log("error!", error);
-        App.viewManager.add(new App.Views.Notification({message: "囧，错误！", level: "error"})).render();
+        App.dispatcher.trigger("error:load", error);
       },
     });
   },

@@ -5,6 +5,7 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
   url: 'd/offered-ads',
 
   initialize: function() {
+    _.extend(this, this.options);
     _.bindAll(this, "parse", "fetch", "pageInfo", "nextPage", "previousPage");
     this.page = 1;
     this.perPage = (this.perPage || 25);
@@ -15,7 +16,7 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
 
     var options = (options || {});
     options.data = (options.data || {});
-    _.defaults(options.data, { page: this.page, perPage: this.perPage });
+    _.defaults(options.data, { page: this.page, perPage: this.perPage, kwds: this.kwds, cats: this.cats });
 
     options.reset = true;
     var collection = this;
@@ -34,6 +35,8 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
     this.page = parseInt(response.page, 10) ;
     this.total = response.total;
     this.perPage = response.perPage;
+    this.kwds = response.kwds;
+    this.cats = response.cats;
     return response.models ;
   },
 
@@ -56,7 +59,11 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
   goTo: function(page) {
     if(page > this.pageInfo().pages  || page < 1) return;
     this.page = page;
-    return this.fetch();
+    var self = this;
+    return this.fetch({ 
+      success: function() { self.trigger("paginate:success", { page: page, kwds: self.kwds, cats: self.cats }); },
+      error: function(error) { self.trigger("paginate:error", { error: error }); }
+    });
   },
 
   nextPage: function() {

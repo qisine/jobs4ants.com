@@ -22,7 +22,7 @@ App.Views.JobCategories = Backbone.View.extend({
       success: function(resp, status, xhr) { /*App.dispatcher.trigger("");*/ },
       error: function(error) {
         console.log("error!", error);
-        App.viewManager.add(new App.Views.Notification({message: "囧，错误！", level: "error"})).render();
+        App.dispatcher.trigger("error:load", error);
       },
       reset: true,
     });

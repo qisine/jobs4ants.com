@@ -28,6 +28,8 @@ get '/d/offered-ads' do
   json({  page: params_[:page],
           perPage: params_[:per_page],
           total: search_count,
+          kwds: params_[:kwds],
+          cats: params_[:cats],
           models: models })
 end
 
