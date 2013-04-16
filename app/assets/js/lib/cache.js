@@ -1,10 +1,10 @@
 window.App.Cache = (function() {
-  function Cache() {
+  var Cache = function() {
     this.c = {}; 
   }
 
   Cache.prototype.add = function(obj) {
-    c[obj.id] = obj;
+    this.c[obj.id] = obj;
     return obj;
   }
 
@@ -13,19 +13,19 @@ window.App.Cache = (function() {
   }
 
   Cache.prototype.remove = function(obj) {
-    if(c[obj.id]) delete c[obj.id];
+    if(this.c[obj.id]) delete this.c[obj.id];
   }
 
   Cache.prototype.get = function(obj) {
-    return c[obj.id];
+    return this.c[obj.id];
   }
 
   Cache.prototype.getAll = function() {
-    _.values(c);
+    _.values(this.c);
   }
 
   Cache.prototype.size = function() { 
-    Object.keys(c).length
+    Object.keys(this.c).length
   }
 
   return Cache;
