@@ -16,7 +16,10 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
 
     var options = (options || {});
     options.data = (options.data || {});
-    _.defaults(options.data, { page: this.page, perPage: this.perPage, kwds: this.kwds, cats: this.cats });
+    _.defaults(options.data,
+      { page: this.page, perPage: this.perPage, kwds: this.kwds, cats: this.cats });
+    var cats = options.data["cats"];
+    if(cats && cats.join) options.data["cats"] = cats.join(",");
 
     options.reset = true;
     var collection = this;
