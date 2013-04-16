@@ -10,12 +10,17 @@ App.Views.ShowOfferedAd = Backbone.View.extend({
   },
 
   fetchModel: function() {
-    var m = this.model = new App.Models.OfferedAd;
+    var m = this.model = App.Models.OfferedAd.create({id: this.modelId});
+    console.log(m);
+    if(m.fromCache) {
+      this.render();
+      return;
+    }
     var self = this;
     m.fetch({
       success: function(resp, status, xhr) {
         //App.dispatcher.trigger("reroute", {modelId: self.modelId});
-        this.render();
+        self.render();
       },
       error: function(error) {
         console.log("error!", error);
@@ -25,7 +30,7 @@ App.Views.ShowOfferedAd = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.tmpl({model: this }));
+    this.$el.html(this.tmpl({model: this.model }));
     return this;
   },
 

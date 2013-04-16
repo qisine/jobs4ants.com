@@ -3,7 +3,7 @@ App.Models.OfferedAd = Backbone.Model.extend({
 
   constructor: function(attributes, options) {
     if(attributes && attributes.id) {
-      App.Models.OfferedAd.cache.add(attributes);
+      App.Models.OfferedAd.cache.add(this);
     }
     Backbone.Model.apply(this, arguments);
   },
@@ -27,7 +27,10 @@ App.Models.OfferedAd.create = function(attrs) {
   var ad;
   if(attrs) {
     ad = this.cache.get(attrs); 
-    if(ad) return ad;
+    if(ad) {
+      ad.fromCache = true
+      return ad;
+    }
   }
   ad = this.cache.add(new this(attrs));
   return ad;
