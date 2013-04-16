@@ -3,13 +3,18 @@ App.Views.Notification = Backbone.View.extend({
   tmpl: JST["js/app/templates/shared/notification"],
   el: "#notification-area",
   events: {
-    "click a.dismissor" : "close",
+    "click a.dismissor" : "dismiss",
   },
 
   initialize: function() {
-    _.bindAll(this, "close");
+    _.bindAll(this, "dismiss");
     this.message = this.options.message;
     this.level = this.options.level;
+  },
+
+  dismiss: function(ev) { 
+    ev.preventDefault();
+    this.close();
   },
 
   render: function() {
