@@ -8,8 +8,8 @@ def start_producing
   OfferedAd.delete_all
   ExternalOfferedAd.delete_all
 
-  create_offered_ads
-  create_external_ads
+  ActiveRecord::Base.silence { create_offered_ads }
+#  create_external_ads
 end
 
 def create_offered_ads

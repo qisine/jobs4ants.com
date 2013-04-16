@@ -1,9 +1,12 @@
 class BaseAd < ActiveRecord::Base
-  attr_accessible :body, :title, :type, :work_location_id, :job_category_id
+  SOURCES = %w{ swissant swissinfo tingzi }
+
+  attr_accessible :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published
   belongs_to :job_category
   belongs_to :work_location
 
   validates :body, :title, :job_category_id, presence: true
+  validate :has_correct_source
 
   scope :paginate, ->(page=1, per_page=25) do
     page = page.to_i rescue 1
@@ -23,9 +26,15 @@ class BaseAd < ActiveRecord::Base
     .where("title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwd}%"]*5))
   end
 
+  def has_correct_source
+    if(source && !SOURCES.index(source))
+      errors.add(:source, "source not included in the list")
+    end
+  end
+
   def to_h
     h = {}
-    [:id, :type, :body, :title].each do |e|
+    [:id, :type, :body, :title, :source, :link].each do |e|
       h[e] = (self.attributes[e.to_s] || "").to_s
     end
     h[:job_category] = job_category.to_h
