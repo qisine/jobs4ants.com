@@ -6,6 +6,7 @@ FactoryGirl.define do
       external false
     end
 
+    company { Faker::Company.name }
     title { Faker::Lorem.sentence(Random.new.rand(3..6)) }
     body { Faker::Lorem.paragraphs(Random.new.rand(2..5)).join("\n") }
     published { [true, false].sample }

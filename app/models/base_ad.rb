@@ -1,12 +1,12 @@
 class BaseAd < ActiveRecord::Base
   SOURCES = %w{ swissant swissinfo tingzi }
 
-  attr_accessible :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published,
+  attr_accessible :company, :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published,
                   :uuid
   belongs_to :job_category
   belongs_to :work_location
 
-  validates :body, :title, :job_category_id, presence: true
+  validates :company, :body, :title, :job_category_id, presence: true
   validate :has_correct_source
 
   scope :paginate, ->(page=1, per_page=25) do
@@ -24,7 +24,7 @@ class BaseAd < ActiveRecord::Base
     kwd = kwd || ""
     joins("LEFT JOIN work_locations ON work_locations.id = base_ads.work_location_id")
     .joins("LEFT JOIN job_categories ON job_categories.id = base_ads.job_category_id")
-    .where("title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwd}%"]*5))
+    .where("company ILIKE ? OR title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwd}%"]*6))
   end
 
   scope :published, ->(bool=true) do
