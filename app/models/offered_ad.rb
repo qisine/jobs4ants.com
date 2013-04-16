@@ -1,8 +1,6 @@
 class OfferedAd < BaseAd
   attr_accessible :pay, :uuid
 
-  validates :uuid, presence: true
-
   def to_h
     h = super
     [:pay].each do |e|

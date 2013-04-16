@@ -1,7 +1,8 @@
 class BaseAd < ActiveRecord::Base
   SOURCES = %w{ swissant swissinfo tingzi }
 
-  attr_accessible :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published
+  attr_accessible :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published,
+                  :uuid
   belongs_to :job_category
   belongs_to :work_location
 

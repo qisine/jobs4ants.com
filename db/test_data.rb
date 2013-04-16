@@ -13,9 +13,9 @@ def start_producing
 end
 
 def create_offered_ads
-  78.times.each do
-    FactoryGirl.create(:offered_ad)
-  end
+  15.times.each { FactoryGirl.create(:offered_ad, published: true) }
+  43.times.each { FactoryGirl.create(:offered_ad, published: true, external: true) }
+  14.times.each { FactoryGirl.create(:offered_ad, published: false) }
 end
 
 def create_external_ads
