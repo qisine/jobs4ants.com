@@ -24,7 +24,10 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
 
   searchOfferedAds: function(kwds, page) {
-    if(kwds) kwds = $.trim(decodeURIComponent(kwds));
+    if(kwds) {
+      kwds = $.trim(decodeURIComponent(kwds));
+      App.dispatcher.trigger("kwds:change", kwds);
+    }
     new App.Views.OfferedAds({kwds: kwds, page: page});
   },
 
