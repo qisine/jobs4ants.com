@@ -24,7 +24,6 @@ App.Views.OfferedAds = Backbone.View.extend({
     var self = this;
     c.on("paginate:success", function(data) {
       _.extend(self, data);
-    console.log(data);
       App.dispatcher.trigger("reroute", data);
       self.render();
     });
