@@ -19,7 +19,7 @@ end
 get '/d/offered-ads' do
   params_ = parse_params(params)
 
-  ads = OfferedAd
+  ads = OfferedAd.published
   ads = ads.search(params_[:kwds]) unless params_[:kwds].try(:empty?)
   search_count = ads.count
   ads = ads.paginate(params_[:page], params_[:per_page]) 
