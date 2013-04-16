@@ -42,6 +42,15 @@ get '/d/job-categories' do
   json(JobCategory.all.map(&:to_h))
 end
 
+post '/offered-ad' do
+end
+
+put '/offered-ad/:id' do
+end
+
+delete '/offered-ad/:id' do
+end
+
 helpers do
   def parse_params(p)
     info = {}
