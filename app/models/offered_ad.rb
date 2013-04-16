@@ -1,5 +1,5 @@
 class OfferedAd < BaseAd
-  attr_accessible :pay, :uuid
+  attr_accessible :pay
 
   def to_h
     h = super
