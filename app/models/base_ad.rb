@@ -20,16 +20,12 @@ class BaseAd < ActiveRecord::Base
     order("created_at desc").offset((page-1) * per_page).limit(per_page)
   end
 
-  scope :search, ->(kwd) do
-    kwd = kwd || ""
-    joins("LEFT JOIN work_locations ON work_locations.id = base_ads.work_location_id")
-    .joins("LEFT JOIN job_categories ON job_categories.id = base_ads.job_category_id")
-    .where("company ILIKE ? OR title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwd}%"]*6))
+  scope :search, ->(kwds) do
+    kwds = kwds || ""
+    joins(:work_location)
+    .joins(:job_category)
+    .where("company ILIKE ? OR title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwds}%"]*6))
   end
-
-  scope :published, ->(bool=true) do
-    where("published = ?", bool)
-  end 
 
   def has_correct_source
     if(source && !SOURCES.index(source))
