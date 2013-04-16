@@ -32,7 +32,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
 
   showOfferedAd: function(id) {
-
+    new App.Views.ShowOfferedAd({modelId: id });
   },
 
   _navigateTo: function(data) {
