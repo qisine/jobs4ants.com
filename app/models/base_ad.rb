@@ -26,6 +26,10 @@ class BaseAd < ActiveRecord::Base
     .where("title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwd}%"]*5))
   end
 
+  scope :published, ->(bool=true) do
+    where("published = ?", bool)
+  end 
+
   def has_correct_source
     if(source && !SOURCES.index(source))
       errors.add(:source, "source not included in the list")
