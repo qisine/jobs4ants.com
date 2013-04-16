@@ -15,7 +15,7 @@ FactoryGirl.define do
     after :build do |ad, evaluator|
       ad.uuid = SecureRandom.uuid if ad.published
       if(evaluator.external)
-        ad.source = (BaseAd::SOURCES + [nil]).sample 
+        ad.source = BaseAd::SOURCES.sample 
         ad.link = "http://www.swissant.com/forum/forum.php"
       end
     end
