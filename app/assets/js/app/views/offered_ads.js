@@ -6,12 +6,12 @@ App.Views.OfferedAds = Backbone.View.extend({
   el: "#ads-body",
 
   initialize: function() {
-    _.bindAll(this, "render", "_addOptions");
-    this._addOptions(this.options);
+    _.bindAll(this, "render", "parseOptions");
+    this.data = this.parseOptions(this.options);
     var self = this;
 
     App.dispatcher.on("search:submit filter:submit", function(params) {
-      self._addOptions(params);
+      _.extend(self.data, self.parseOptions(params));
       self.fetchCollection();
     });
 
@@ -19,13 +19,11 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   fetchCollection: function() {
-    var data = { page: this.page , kwds: this.kwds, cats: this.cats};
-    console.log(data);
-    var c = this.collection = new App.Collections.OfferedAds(data);
+    console.log(this.data);
+    var c = this.collection = new App.Collections.OfferedAds(_.clone(this.data));
     var self = this;
     c.on("paginate:success", function(data) {
-      _.extend(self, data);
-      App.dispatcher.trigger("reroute", data);
+      App.dispatcher.trigger("reroute", _.clone(data));
       self.render();
     });
     c.on("paginate:error", function(error) {
@@ -33,9 +31,9 @@ App.Views.OfferedAds = Backbone.View.extend({
       App.dispatcher.trigger("error:load", error);
     });
     c.fetch({
-      data: data,
+      data: _.clone(this.data),
       success: function(resp, status, xhr) {
-        App.dispatcher.trigger("reroute", data);
+        App.dispatcher.trigger("reroute", _.clone(self.data));
         self.render();
       },
       error: function(error) {
@@ -57,9 +55,13 @@ App.Views.OfferedAds = Backbone.View.extend({
     this.paginator.close();
   },
 
-  _addOptions: function(opts) {
-    _.extend(this, opts);
-    if(this.kwds) this.kwds = $.trim(this.kwds);
-    if(this.page) this.page = parseInt(this.page, 10) || 1;
+  parseOptions: function(opts) {
+    var d = opts || {};
+    if(opts) {
+      d["cats"] = _.clone(opts.cats);
+      d["kwds"] = $.trim(opts.kwds);
+      d["page"] = parseInt(opts.page, 10) || 1;
+    }
+    return d;
   },
 });
