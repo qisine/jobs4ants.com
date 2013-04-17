@@ -2,14 +2,19 @@
 
 App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
-    "(/)":                     "home",
-    "offered-ads(/*splat)":   "searchOfferedAds",
-    "offered-ads/:id" :     "showOfferedAd",
+    "(/)": "home",
+    "offered-ads(/)": "searchOfferedAds",
   },
 
   initialize: function() {
     var vM = this.vM = App.viewManager;
     var self = this;
+
+    //numeric ids
+    this.route(/^offered-ads\/(\d+)(?:\/?$|\/(.*))/, "showOfferedAd");
+
+    //all other params
+    this.route(/^offered-ads\/((?!\d+).+)$/,   "searchOfferedAds");
 
     _.bindAll(this, "navigateTo");
     App.dispatcher.on("reroute", this.navigateTo);
