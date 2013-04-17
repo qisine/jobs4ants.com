@@ -20,6 +20,7 @@ App.Views.OfferedAds = Backbone.View.extend({
 
   fetchCollection: function() {
     var data = { page: this.page , kwds: this.kwds, cats: this.cats};
+    console.log(data);
     var c = this.collection = new App.Collections.OfferedAds(data);
     var self = this;
     c.on("paginate:success", function(data) {
@@ -59,6 +60,6 @@ App.Views.OfferedAds = Backbone.View.extend({
   _addOptions: function(opts) {
     _.extend(this, opts);
     if(this.kwds) this.kwds = $.trim(this.kwds);
-    if(this.page) this.page = parseInt(this.options.page, 10) || 1;
+    if(this.page) this.page = parseInt(this.page, 10) || 1;
   },
 });
