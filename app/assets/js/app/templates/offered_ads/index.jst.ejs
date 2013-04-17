@@ -1,19 +1,25 @@
-<div id='offered-ads'> 
-<% _.each(models, function(m) { %>
-  <div class="title">
-    <div class=""><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></div> 
+<div class="row">
+  <div class="span2" id="job-categories">
   </div>
-  <% if(m.get('link')) { %>
-  <div class="source">
-    来自于 <a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
+  <div class="span10" id="ads-body">
+    <div id='offered-ads'> 
+    <% _.each(models, function(m) { %>
+      <div class="title">
+        <div class=""><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></div> 
+      </div>
+      <% if(m.get('link')) { %>
+      <div class="source">
+        来自于 <a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
+      </div>
+      <% } %>
+      <div class="details">
+        <span class=""><%= m.get('company') %></span> 
+        <span><%= m.get('created_at') %></span>
+      </div>
+      <div class="body-preview">
+        <% if(m.get('bodyPreview')) %>
+      </div>
+    <% }) %> 
+    </div>
   </div>
-  <% } %>
-  <div class="details">
-    <span class=""><%= m.get('company') %></span> 
-    <span><%= m.get('created_at') %></span>
-  </div>
-  <div class="body-preview">
-    <% if(m.get('bodyPreview')) %>
-  </div>
-<% }) %> 
 </div>

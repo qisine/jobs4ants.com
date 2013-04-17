@@ -21,8 +21,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
     _.bindAll(this, "navigateTo");
     App.dispatcher.on("reroute", this.navigateTo);
     App.dispatcher.on("error:load", this.handleError);
+
     vM.add(new App.Views.SearchBar).render();
-    vM.add(new App.Views.JobCategories).render();
   },
 
   home: function() {
@@ -34,7 +34,6 @@ App.Routers.AppRouter = Backbone.Router.extend({
     console.log("splat => ", splat, "|params =>", params, "|cats =>", cats);
     App.dispatcher.trigger("kwds:change", $.trim(params["kwds"]));
     App.dispatcher.trigger("cats:change", cats);
-    this.vM.add(new App.Views.JobCategories({cats: _.clone(cats)})).render();
     var v = new App.Views.OfferedAds({kwds: params["kwds"], page: params["page"], cats: _.clone(cats)});
     this.vM.add(v);
   },

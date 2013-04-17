@@ -1,7 +1,7 @@
 App.Views.JobCategories = Backbone.View.extend({
   type: "jobCategories",
   tmpl: JST["js/app/templates/shared/job_categories"],
-  el: "#job-categories",
+  tag: "div",
   events: {
     "click button": "filter",
   },
@@ -37,7 +37,16 @@ App.Views.JobCategories = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.tmpl({models: this.collection.models}));
+    this.$el.html(this.tmpl({models: this.collection.models}))
+    var self = this;
+    if(this.cats && this.cats.length > 0) {
+      this.$el
+        .find("input[type='checkbox']")
+        .each(function() {
+          if(_.contains(self.cats, this.value)) $(this).attr("checked", "");
+        });
+    }
+    return this;
   },
 
   onClose: function() {

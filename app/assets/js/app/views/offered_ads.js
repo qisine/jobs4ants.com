@@ -3,7 +3,7 @@
 App.Views.OfferedAds = Backbone.View.extend({
   type: "indexOfferedAds",
   tmpl: JST["js/app/templates/offered_ads/index"],
-  el: "#ads-body",
+  el: "#app-body",
 
   initialize: function() {
     _.bindAll(this, "render", "parseOptions");
@@ -44,15 +44,18 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   render: function() {
+    this.vwCats = new App.Views.JobCategories({cats: _.clone(this.data["cats"])}).render();
     this.$el.html(this.tmpl({models: this.collection.models }));
-    this.paginator = new App.Views.Paginator({collection: this.collection});
-    this.$el.append(this.paginator.render());
+    this.vwPaginator = new App.Views.Paginator({collection: this.collection});
+    this.$el.find("#offered-ads").append(this.vwPaginator.render().$el);
+    this.$el.find("#job-categories").append(this.vwCats.$el);
     return this;
   },
 
   onClose: function() {
     this.collection.off;
-    this.paginator.close();
+    this.vwPaginator.close();
+    this.vwCats.close();
   },
 
   parseOptions: function(opts) {

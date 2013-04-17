@@ -18,7 +18,7 @@ App.Views.Paginator = Backbone.View.extend({
   render: function() {
     var t = this.tmpl({ info: this.collection.pageInfo() });
     this.$el.append(t);
-    return this.$el;
+    return this;
   },
     
   goTo: function(ev) {
