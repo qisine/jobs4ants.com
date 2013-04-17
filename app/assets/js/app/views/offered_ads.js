@@ -10,7 +10,7 @@ App.Views.OfferedAds = Backbone.View.extend({
     this.data = this.parseOptions(this.options);
     var self = this;
 
-    App.dispatcher.on("search:submit filter:submit", function(params) {
+    App.dispatcher.on("filter:submit search:submit", function(params) {
       _.extend(self.data, self.parseOptions(params));
       self.fetchCollection();
     });
