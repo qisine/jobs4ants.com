@@ -12,16 +12,17 @@ App.Views.ShowOfferedAd = Backbone.View.extend({
   fetchModel: function() {
     var m = this.model = App.Models.OfferedAd.create({id: this.modelId});
     if(m.fromCache) {
-      this.render();
+      //this.render();
       console.log('cached model=>', this.model);
       return;
     }
     var self = this;
+    m.on("change", this.render);
     m.fetch({
       success: function(resp, status, xhr) {
         //App.dispatcher.trigger("reroute", {modelId: self.modelId});
         console.log('fetched model=>', self.model);
-        self.render();
+        //self.render();
       },
       error: function(error) {
         console.log("error!", error);
