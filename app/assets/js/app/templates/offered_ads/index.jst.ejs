@@ -3,7 +3,10 @@
   </div>
   <div class="span10" id="ads-body">
     <div id='offered-ads'> 
-    <% _.each(models, function(m) { %>
+    <% var totalReturned = collection.pageInfo().total;
+       var returnedMsg = totalReturned > 0 ? "找到了" + totalReturned : "呃！没有相关的" %>
+    <div class='result-message'><%= returnedMsg + "工作信息" %></div>
+    <% _.each(collection.models, function(m) { %>
       <div class="title">
         <div class=""><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></div> 
       </div>
