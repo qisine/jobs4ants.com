@@ -2,7 +2,7 @@
 
 App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
-    "":                     "home",
+    "(/)":                     "home",
     "offered-ads(/*splat)":   "searchOfferedAds",
     "offered-ads/:id" :     "showOfferedAd",
   },
@@ -23,8 +23,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
 
   searchOfferedAds: function(splat) {
-    console.log("splat => ", splat);
     var params = this.paramsFromSplat(decodeURIComponent(splat)), cats = this.parseArrayParam(params["cats"]); 
+    console.log("splat => ", splat, "|params =>", params, "|cats =>", cats);
     App.dispatcher.trigger("kwds:change", $.trim(params["kwds"]));
     App.dispatcher.trigger("cats:change", cats);
     new App.Views.OfferedAds({kwds: params["kwds"], page: params["page"], cats: cats});
@@ -35,12 +35,16 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
 
   navigateTo: function(data) {
-    var url = this.constructor.urlBuilder(data);
-    this.navigate(url); 
+    var url = this.constructor.urlBuilder(data) || "";
+    console.log('reroute to =>', url);
+    this.navigate('offered-ads/' + url); //for right now, assuming offered ads is the only resource
   },
 
   paramsFromSplat: function(splat) {
-    var params = {}, rgxs = { kwds: /\/s\/(\w+)\//, cats: /\/c\/(\w+)\//, page: /\/p\/(\d+)\// };
+    var params = {};
+    var rgxs = { kwds: /(?:^|\/)s\/([\w\s]+)(?:$|\/)/,
+                 cats: /(?:^|\/)c\/([\d-]+)(?:$|\/)/,
+                 page: /(?:^|\/)p\/(\d+)(?:$|\/)/ };
     for(key in rgxs) {
       var result = rgxs[key].exec(splat); 
       if(result && result.length >= 2) params[key] = result[1];
@@ -51,8 +55,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
   parseArrayParam: function(arrayParam) {
     var result = $.trim(arrayParam);
     if(!result) return;
-    result = result.split(",");
-    return result.length > 1 ? result : undefined;
+    result = _.reject(result.split("-"), function(e) { $.trim(e) });
+    return result.length > 0 ? result : undefined;
   },
  
   handleError: function(error) {
@@ -61,19 +65,19 @@ App.Routers.AppRouter = Backbone.Router.extend({
 });
 
 App.Routers.AppRouter.urlBuilder = function(data) {
-  var root = "/", params = [], prefixes = {page: "p/", kwds: "s/", cats: "c/"};
-  if(!data || (data && _.isEmpty(data))) return root;
+  var params = [], prefixes = {page: "p/", kwds: "s/", cats: "c/"};
+  if(!data || (data && _.isEmpty(data))) return;
 
-  _.each(["kwds", "page", "cats"], function(k) {
+  _.each(["kwds","cats", "page"], function(k) {
     var e = data[k], p = prefixes[k];
     if(e && e.join && e.length > 0) {
-      params.push(p + e.join(","));
+      params.push(p + e.join("-"));
     } else if(e = $.trim(e)) {
       params.push(p + e.toLowerCase());
     }
   });
 
-  return root + params.join("/");
+  return params.join("/");
 }
 //adapted from https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
 $(document).on("click", "a[href]", function(ev) {
