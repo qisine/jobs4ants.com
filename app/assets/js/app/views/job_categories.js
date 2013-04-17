@@ -33,7 +33,7 @@ App.Views.JobCategories = Backbone.View.extend({
 
     var selected = this.$el.find("input:checked").map(function() { return this.value });
 
-    App.dispatcher.trigger("filter:submit", { cats: $.makeArray(selected) });
+    App.dispatcher.trigger("filter:submit", { cats: $.makeArray(selected), page: 1 });
   },
 
   render: function() {
