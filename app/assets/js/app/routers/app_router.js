@@ -4,6 +4,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "(/)": "home",
     "offered-ads(/)": "searchOfferedAds",
+    "offered-ads/new": "newOfferedAd",
   },
 
   initialize: function() {
@@ -11,7 +12,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
     var self = this;
 
     //numeric ids
-    this.route(/^offered-ads\/(\d+)(?:\/?$|\/(.*))/, "showOfferedAd");
+    this.route(/^offered-ads\/(\d+)\/?$/, "showOfferedAd");
+    this.route(/^offered-ads\/(\d+)\/edit\/?$/, "editOfferedAd");
 
     //all other params
     this.route(/^offered-ads\/((?!\d+).+)$/,   "searchOfferedAds");
@@ -32,11 +34,21 @@ App.Routers.AppRouter = Backbone.Router.extend({
     console.log("splat => ", splat, "|params =>", params, "|cats =>", cats);
     App.dispatcher.trigger("kwds:change", $.trim(params["kwds"]));
     App.dispatcher.trigger("cats:change", cats);
-    new App.Views.OfferedAds({kwds: params["kwds"], page: params["page"], cats: cats});
+    this.vM.add(new App.Views.JobCategories({cats: _.clone(cats)})).render();
+    var v = new App.Views.OfferedAds({kwds: params["kwds"], page: params["page"], cats: _.clone(cats)});
+    this.vM.add(v);
   },
 
   showOfferedAd: function(id) {
-    new App.Views.ShowOfferedAd({modelId: id });
+    this.vM.add(new App.Views.ShowOfferedAd({modelId: id }));
+  },
+
+  newOfferedAd: function() {
+
+  },
+  
+  editOfferedAd: function(id) {
+
   },
 
   navigateTo: function(data) {
