@@ -1,7 +1,7 @@
 <div id='offered-ads'> 
 <% _.each(models, function(m) { %>
   <div class="title">
-    <div class=""><a href="/#offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></div> 
+    <div class=""><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></div> 
   </div>
   <% if(m.get('link')) { %>
   <div class="source">
