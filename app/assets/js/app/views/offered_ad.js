@@ -11,7 +11,6 @@ App.Views.ShowOfferedAd = Backbone.View.extend({
 
   fetchModel: function() {
     var m = this.model = App.Models.OfferedAd.create({id: this.modelId});
-    console.log(m);
     if(m.fromCache) {
       this.render();
       return;
