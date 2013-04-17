@@ -19,7 +19,7 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
     _.defaults(options.data,
       { page: this.page, perPage: this.perPage, kwds: this.kwds, cats: this.cats });
     var cats = options.data["cats"];
-    if(cats && cats.join) options.data["cats"] = cats.join(",");
+    if(cats && cats.length && cats.length > 0) options.data["cats"] = JSON.stringify(cats);
 
     options.reset = true;
     var collection = this;
