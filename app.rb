@@ -16,6 +16,15 @@ get %r{^/(?!d/).*} do
   erb :index
 end
 
+get %r{/d/offered-ads/(\d+)/?} do |id|
+  begin
+    json(OfferedAd.find(id).to_h)
+  rescue ActiveRecord::RecordNotFound
+    status 404
+    json(error: "record with #{id} not found")
+  end
+end
+
 get '/d/offered-ads/?*?' do 
   params_ = parse_params(params)
 
