@@ -11,7 +11,7 @@ _.extend(window.App, {
   init: function() {
     $(function() {
       new App.Routers.AppRouter;
-      Backbone.history.start();
+      Backbone.history.start({pushState: true});
     });
   },
   dispatcher: _.extend({}, Backbone.Events),

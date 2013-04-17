@@ -12,12 +12,14 @@ Dir["./app/models/*.rb"].each { |f| require f }
 
 set :views, Proc.new { File.join(root, "app", "views") }
 
-get '/' do
+get %r{^/(?!d/).*} do
   erb :index
 end
 
-get '/d/offered-ads' do
+get %r{/d/offered-ads(?:(?:/s/(\w+))?/p/(\d+))?} do |kwds, page|
   params_ = parse_params(params)
+  params_[:kwds] = kwds || params_[:kwds]
+  params_[:page] = page || params_[:page]
 
   ads = OfferedAd.where(published: true)
   ads = ads.joins(:job_category).where(job_category_id: params_[:cats]) unless params_[:cats].try(:empty?)

@@ -2,7 +2,7 @@
 
 App.Collections.OfferedAds = Backbone.Collection.extend({
   model: App.Models.OfferedAd,
-  url: 'd/offered-ads',
+  url: '/d/offered-ads',
 
   initialize: function() {
     _.extend(this, this.options);
@@ -29,8 +29,7 @@ App.Collections.OfferedAds = Backbone.Collection.extend({
         collection.trigger("fetched");
         success(response);
       }
-    } else {
-    }
+    } 
     return Backbone.Collection.prototype.fetch.call(this, options) ;
   },
 
