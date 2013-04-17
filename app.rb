@@ -16,14 +16,12 @@ get %r{^/(?!d/).*} do
   erb :index
 end
 
-get %r{/d/offered-ads(?:(?:/s/(\w+))?/p/(\d+))?} do |kwds, page|
+get '/d/offered-ads/?*?' do 
   params_ = parse_params(params)
-  params_[:kwds] = kwds || params_[:kwds]
-  params_[:page] = page || params_[:page]
 
   ads = OfferedAd.where(published: true)
-  ads = ads.joins(:job_category).where(job_category_id: params_[:cats]) unless params_[:cats].try(:empty?)
-  ads = ads.search(params_[:kwds]) unless params_[:kwds].try(:empty?)
+  ads = ads.joins(:job_category).where(job_category_id: params_[:cats]) if params_[:cats] && params_[:cats].any?
+  ads = ads.search(params_[:kwds]) if params[:kwds] && !params_[:kwds].empty?
 
   search_count = ads.count
   ads = ads.paginate(params_[:page], params_[:per_page]) 
@@ -69,11 +67,11 @@ end
 helpers do
   def parse_params(p)
     info = {}
-    info[:page] = p[:page]
+    info[:page] = p[:page] || 1
     per_page = p[:perPage] || 25
     info[:per_page] = per_page.to_i rescue 25
     info[:kwds] = p[:kwds].try(:strip)
-    info[:cats] = p[:cats].try { |c| c.split(",") } || []
+    info[:cats] = p[:cats].try { |c| JSON.parse(c) } rescue []
     info
   end
 end
