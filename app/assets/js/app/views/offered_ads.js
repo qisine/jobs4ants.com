@@ -6,15 +6,10 @@ App.Views.OfferedAds = Backbone.View.extend({
   el: "#app-body",
 
   initialize: function() {
-    _.bindAll(this, "render", "parseOptions");
+    _.bindAll(this, "render", "parseOptions", "handleUpdates");
     this.data = this.parseOptions(this.options);
-    var self = this;
 
-    App.dispatcher.on("filter:submit search:submit", function(params) {
-      _.extend(self.data, self.parseOptions(params));
-      self.fetchCollection();
-    });
-
+    App.dispatcher.on("filter:submit search:submit", this.handleUpdates);
     this.fetchCollection(this.options.kwds, this.options.page);
   },
 
@@ -44,6 +39,11 @@ App.Views.OfferedAds = Backbone.View.extend({
     });
   },
 
+  handleUpdates: function(params) {
+    _.extend(this.data, this.parseOptions(params));
+    this.fetchCollection();
+  },
+
   render: function() {
     this.vwCats = new App.Views.JobCategories({cats: _.clone(this.data["cats"])}).render();
     this.$el.html(this.tmpl({collection: this.collection }));
@@ -56,7 +56,8 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   onClose: function() {
-    this.collection.off;
+    App.dispatcher.off("filter:submit search:submit", this.handleUpdates);
+    this.collection.off();
     this.vwPaginator && this.vwPaginator.close();
     this.vwCats && this.vwCats.close();
     this.vwSearchBar && this.vwSearchBar.close();

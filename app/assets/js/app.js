@@ -18,8 +18,8 @@ _.extend(window.App, {
 });
 
 Backbone.View.prototype.close = function() {
-  var el = this.$el;
-  el.off();
+  this.$el.off();
+  this.undelegateEvents();
   this.onClose && this.onClose();
   //this.el = this.$el = undefined;
 }
