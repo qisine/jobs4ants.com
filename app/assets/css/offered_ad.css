@@ -2,12 +2,13 @@
   margin-left: 2%;
 }
 
+#offered-ad h3 {
+  margin-top: 0;
+}
+
 #offered-ad .body {
   color: #777;
 }
 
 #offered-ad .details {
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: .5em;
 }

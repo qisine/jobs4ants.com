@@ -1,19 +1,9 @@
 <div id="offered-ad">
-  <div class="row">
-    <div class="span9 main">
-      <div class="job-category">
-        <a href="offered-ads/c/<%= model.get('job_category').get('id') %>">
-          <%= model.get('job_category').get('name') %>
-        </a>
-      </div>
-      <div class="title">
-        <h3><%= model.get('title') %></h2>
-      </div>
-      <div class="body">
-        <%= model.get('body') %>
-      </div>
+  <div class="main">
+    <div class="title">
+      <h3><%= model.get('title') %></h2>
     </div>
-    <div class="span3 details">
+    <div class="details">
       <div class="company">
         公司: <%= model.get('company') %>
       </div>
@@ -23,6 +13,9 @@
       <div class="date">
         发表于: <%= model.get('posted_at') %>
       </div>
+    </div>
+    <div class="body">
+      <%= model.get('body') %>
     </div>
   </div>
 </div>
