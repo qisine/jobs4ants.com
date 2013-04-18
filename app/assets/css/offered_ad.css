@@ -1,13 +1,10 @@
-#offered-ad {
-  margin-left: 2%;
-}
-
 #offered-ad h3 {
   margin-top: 0;
 }
 
 #offered-ad .body {
   color: #777;
+  margin-top: .8em;
 }
 
 #offered-ad .details {

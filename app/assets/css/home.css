@@ -7,7 +7,7 @@
   margin: 0 auto;
 }
 
-#home input {
+#home input[type='search'] {
   width: 25em;
   height: 2em;
   padding: .5em;
