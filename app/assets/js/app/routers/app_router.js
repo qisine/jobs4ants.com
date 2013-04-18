@@ -96,8 +96,9 @@ App.Routers.AppRouter.urlBuilder = function(data) {
 
   return params.join("/");
 }
+
 //adapted from https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
-$(document).on("click", "a[href]", function(ev) {
+$(document).on("click", "a[href]:not(.back)", function(ev) {
   var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
   var root = location.protocol + "//" + location.host + (App.root || "");
 
@@ -108,3 +109,10 @@ $(document).on("click", "a[href]", function(ev) {
   }
 });
 
+/* Just duplicating browser functionality? Don't implement for the time being */
+/*
+$(document).on("click", "a.back", function(ev) {
+ ev.preventDefault();
+ Backbone.history.back();
+});
+*/
