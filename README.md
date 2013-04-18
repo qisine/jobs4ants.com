@@ -1,1 +1,2 @@
-The web API & web frontend for Antworker
+A job search site for Chinese jobs in Switzerland
+一个瑞士中文招聘网
