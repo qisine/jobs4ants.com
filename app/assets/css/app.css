@@ -1,9 +1,19 @@
 /*= require_tree .  */
 
-* { margin: 0; padding: 0}
+* { margin: 0; padding: 0; border: none}
 ul { list-style-type: none; }
-header, footer, #notification-area, #app-body { margin: 1em }
+#notification-area, #app-body { margin: 1em }
 .display-none { display: none; }
+
+body, html {
+  height: 100%;
+}
+
+#content-container {
+  height: 100%;
+  margin-bottom: -60px;
+  overflow: hidden;
+}
 
 #notification-area {
   min-width: 30%;
@@ -29,4 +39,11 @@ header, footer, #notification-area, #app-body { margin: 1em }
   background-color: #FFF;
   font-size: 1em;
   text-align: center;
+}
+
+footer {
+  color: #FFF;
+  padding: 10px 0 0 10px;
+  background-color: #008080;
+  height: 50px;
 }
