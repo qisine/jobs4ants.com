@@ -21,7 +21,7 @@ Backbone.View.prototype.close = function() {
   var el = this.$el;
   el.off();
   this.onClose && this.onClose();
-  this.el = this.$el = undefined;
+  //this.el = this.$el = undefined;
 }
 
 App.init();
