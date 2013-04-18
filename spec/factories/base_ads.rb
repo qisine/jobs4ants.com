@@ -12,6 +12,7 @@ FactoryGirl.define do
     published { [true, false].sample }
     work_location { WorkLocation.all.sample }
     job_category { JobCategory.all.sample }
+    posted_at { Time.now - (Random.new.rand(100_000..10_000_000)) }
 
     after :build do |ad, evaluator|
       ad.uuid = SecureRandom.uuid if ad.published
@@ -22,8 +23,6 @@ FactoryGirl.define do
     end
 
     after :create do |ad|
-      ad.created_at = ad.updated_at = Time.now - (Random.new.rand(100_000..10_000_000))
-      ad.save!
     end
   end
 end

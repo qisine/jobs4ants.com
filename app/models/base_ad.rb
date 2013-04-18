@@ -1,7 +1,7 @@
 class BaseAd < ActiveRecord::Base
   SOURCES = %w{ swissant swissinfo tingzi }
 
-  attr_accessible :company, :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published,
+  attr_accessible :company, :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published, :posted_at
                   :uuid
   belongs_to :job_category
   belongs_to :work_location
@@ -38,7 +38,7 @@ class BaseAd < ActiveRecord::Base
     [:id, :type, :body, :title, :source, :link, :company].each do |e|
       h[e] = (self.attributes[e.to_s] || "").to_s
     end
-    h[:created_at] = created_at.strftime("%Y-%m-%d %H:%M")
+    h[:posted_at] = posted_at.strftime("%Y-%m-%d %H:%M")
     h[:job_category] = job_category.to_h
     h[:work_location] = work_location.to_h
     h
