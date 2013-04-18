@@ -7,7 +7,7 @@
        var returnedMsg = totalReturned > 0 ? "找到了" + totalReturned : "呃！没有相关的" %>
     <div class='result-message'><%= returnedMsg + "工作信息" %></div>
     <% _.each(collection.models, function(m) { %>
-      <div class='ad-body'>
+      <div class='ad-main'>
         <div class="title">
           <h4><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></h4>
         </div>
