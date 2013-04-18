@@ -50,6 +50,8 @@ App.Views.OfferedAds = Backbone.View.extend({
     this.vwPaginator = new App.Views.Paginator({collection: this.collection});
     this.$el.find("#offered-ads").append(this.vwPaginator.render().$el);
     this.$el.find("#job-categories").append(this.vwCats.$el);
+    this.vwSearchBar = new App.Views.SearchBar({ kwds: this.data["kwds"] }).render();
+    this.$el.prepend(this.vwSearchBar.$el);
     return this;
   },
 
@@ -57,6 +59,7 @@ App.Views.OfferedAds = Backbone.View.extend({
     this.collection.off;
     this.vwPaginator.close();
     this.vwCats.close();
+    this.vwSearchBar.close();
   },
 
   parseOptions: function(opts) {

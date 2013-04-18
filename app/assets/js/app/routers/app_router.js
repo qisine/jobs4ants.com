@@ -18,15 +18,18 @@ App.Routers.AppRouter = Backbone.Router.extend({
     //all other params
     this.route(/^offered-ads\/((?!\d+).+)$/,   "searchOfferedAds");
 
-    _.bindAll(this, "navigateTo");
+    _.bindAll(this, "navigateTo", "searchOfferedAds", "handleError");
     App.dispatcher.on("reroute", this.navigateTo);
     App.dispatcher.on("error:load", this.handleError);
-
-    vM.add(new App.Views.SearchBar).render();
+    App.dispatcher.on("home:search:submit", function(kwds) {
+      var splat = $.trim(kwds);
+      self.searchOfferedAds(splat ? "s/" + kwds : "");
+    });
   },
 
   home: function() {
-    this.navigate("offered-ads", {trigger: true});
+    var v = new App.Views.Home;
+    this.vM.add(v).render();
   },
 
   searchOfferedAds: function(splat) {

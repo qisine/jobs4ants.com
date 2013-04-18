@@ -1,13 +1,15 @@
 App.Views.SearchBar = Backbone.View.extend({
   type: "searchBar",
   tmpl: JST["js/app/templates/shared/search_bar"],
-  el: "#search-bar",
+  tagName: "div",
   events: {
     "click button": "search",
   },
 
   initialize: function() {
     _.bindAll(this, "updateValue");
+    this.kwds = this.options.kwds;
+    if(this.kwds) this.updateValue(this.kwds);
     App.dispatcher.on("kwds:change", this.updateValue);
   },
 
@@ -23,7 +25,8 @@ App.Views.SearchBar = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.tmpl());
+    this.$el.html(this.tmpl({kwds: this.kwds}));
+    return this;
   },
 
   onClose: function() {
