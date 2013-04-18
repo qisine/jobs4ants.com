@@ -7,20 +7,22 @@
        var returnedMsg = totalReturned > 0 ? "找到了" + totalReturned : "呃！没有相关的" %>
     <div class='result-message'><%= returnedMsg + "工作信息" %></div>
     <% _.each(collection.models, function(m) { %>
-      <div class="title">
-        <div class=""><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></div> 
-      </div>
-      <% if(m.get('link')) { %>
-      <div class="source">
-        来自于 <a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
-      </div>
-      <% } %>
-      <div class="details">
-        <span class=""><%= m.get('company') %></span> 
-        <span><%= m.get('created_at') %></span>
-      </div>
-      <div class="body-preview">
-        <% if(m.get('bodyPreview')) %>
+      <div class='ad-body'>
+        <div class="title">
+          <h4><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></h4>
+        </div>
+        <% if(m.get('link')) { %>
+        <div class="source">
+          来自于 <a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
+        </div>
+        <% } %>
+        <div class="row details">
+            <div class="span3"><b><%= m.get('company') %></b></div>
+            <div class="span2"><%= m.get('posted_at') %></div>
+        </div>
+        <div class="body-preview">
+          <%= m.bodyPreview() %>
+        </div>
       </div>
     <% }) %> 
     </div>

@@ -1,0 +1,13 @@
+#offered-ad {
+  margin-left: 2%;
+}
+
+#offered-ad .body {
+  color: #777;
+}
+
+#offered-ad .details {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: .5em;
+}

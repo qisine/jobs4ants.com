@@ -1,8 +1,28 @@
 <div id="offered-ad">
-  <div class="title">
-    <%= model.get('title') %>
-  </div>
-  <div class="body">
-    <%= model.get('body') %>
+  <div class="row">
+    <div class="span9 main">
+      <div class="job-category">
+        <a href="offered-ads/c/<%= model.get('job_category').get('id') %>">
+          <%= model.get('job_category').get('name') %>
+        </a>
+      </div>
+      <div class="title">
+        <h3><%= model.get('title') %></h2>
+      </div>
+      <div class="body">
+        <%= model.get('body') %>
+      </div>
+    </div>
+    <div class="span3 details">
+      <div class="company">
+        公司: <%= model.get('company') %>
+      </div>
+      <div class="work-location">
+        工作低点: <%= model.get('work_location').get('city') %>
+      </div>
+      <div class="date">
+        发表于: <%= model.get('posted_at') %>
+      </div>
+    </div>
   </div>
 </div>

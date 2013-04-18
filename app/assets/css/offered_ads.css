@@ -8,16 +8,16 @@
   margin-bottom: 1em;
 }
 
-#offered-ads .title {
-  font-size: 1.1em;
-  font-weight: bold; 
-  margin-bottom: .5em;
+#offered-ads .ad-body {
+  margin-bottom: 2em;
+}
+  
+#offered-ads h4 {
+  margin-bottom: 0;
 }
 
-#offered-ads .body {
-  color: #777;
+#offered-ads .body-preview {
+  color: #666;
+  margin-top: .3em;
 }
 
-#offered-ads > .row {
-  margin-bottom: 1em;
-}

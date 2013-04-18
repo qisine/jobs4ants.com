@@ -1,11 +1,17 @@
 App.Models.OfferedAd = Backbone.Model.extend({
-  previewLength: 250,
+  previewLength: 150,
 
   constructor: function(attributes, options) {
     if(attributes && attributes.id) {
       App.Models.OfferedAd.cache.add(this);
     }
     Backbone.Model.apply(this, arguments);
+  },
+
+  parse: function(response) {
+    response.work_location = new App.Models.WorkLocation(response.work_location);
+    response.job_category = new App.Models.JobCategory(response.job_category);
+    return response;
   },
 
   url: function() {
@@ -15,10 +21,11 @@ App.Models.OfferedAd = Backbone.Model.extend({
   },
 
   bodyPreview: function() {
-    if(!this._bodyPreviewString && this.body && this.body.length > this.previewLength) 
-      this._bodyPreviewString = this.body.substr(0, this.previewLength);
+    var b = this.get('body');
+    if(!this._bodyPreviewString && b && b.length > this.previewLength) 
+      this._bodyPreviewString = b.substr(0, this.previewLength) + "...";
 
-    return this._bodyPreviewString;
+    return this._bodyPreviewString || b;
   }
 });
 
