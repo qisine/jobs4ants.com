@@ -64,9 +64,12 @@ App.Views.OfferedAds = Backbone.View.extend({
 
   parseOptions: function(opts) {
     var d = opts || {};
-    if(opts.cats && opts.cats.length > 0) d["cats"] = _.clone(opts.cats);
-    if(opts.kwds) d["kwds"] = $.trim(opts.kwds);
-    if(opts.page) d["page"] = parseInt(opts.page, 10) || 1;
+    if(opts.resetCats) 
+      d.cats = [];
+    else if(opts.cats && opts.cats.length > 0)
+      d.cats = _.clone(opts.cats);
+    if(opts.kwds) d.kwds = $.trim(opts.kwds);
+    if(opts.page) d.page = parseInt(opts.page, 10) || 1;
     return d;
   },
 });

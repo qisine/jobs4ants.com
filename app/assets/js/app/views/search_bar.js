@@ -9,6 +9,7 @@ App.Views.SearchBar = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "updateValue");
     this.kwds = this.options.kwds;
+    this.resetCats = this.options.resetCats;
     if(this.kwds) this.updateValue(this.kwds);
     App.dispatcher.on("kwds:change", this.updateValue);
   },
@@ -17,7 +18,7 @@ App.Views.SearchBar = Backbone.View.extend({
     ev.preventDefault();
     var kwds = this.$el.find("#general-kwds").val();
 
-    App.dispatcher.trigger("search:submit", {kwds: kwds, page: 1});
+    App.dispatcher.trigger("search:submit", {kwds: kwds, page: 1, resetCats: this.resetCats});
   },
 
   updateValue: function(value) {

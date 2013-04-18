@@ -33,7 +33,7 @@ App.Views.ShowOfferedAd = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.tmpl({model: this.model }));
-    this.vwSearchBar = new App.Views.SearchBar().render();
+    this.vwSearchBar = new App.Views.SearchBar({resetCats: true}).render();
     this.$el.prepend(this.vwSearchBar.$el);
     return this;
   },
