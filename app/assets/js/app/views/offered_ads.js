@@ -57,9 +57,9 @@ App.Views.OfferedAds = Backbone.View.extend({
 
   onClose: function() {
     this.collection.off;
-    this.vwPaginator.close();
-    this.vwCats.close();
-    this.vwSearchBar.close();
+    this.vwPaginator && this.vwPaginator.close();
+    this.vwCats && this.vwCats.close();
+    this.vwSearchBar && this.vwSearchBar.close();
   },
 
   parseOptions: function(opts) {

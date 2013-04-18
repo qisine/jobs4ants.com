@@ -28,8 +28,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
 
   home: function() {
-    var v = new App.Views.Home;
-    this.vM.add(v).render();
+    var v = new App.Views.Home().render();
+    //this.vM.add(v).render();
   },
 
   searchOfferedAds: function(splat) {

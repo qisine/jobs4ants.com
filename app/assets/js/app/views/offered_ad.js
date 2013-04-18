@@ -39,6 +39,6 @@ App.Views.ShowOfferedAd = Backbone.View.extend({
   },
 
   onClose: function() {
-    this.vwSearchBar.close();
+    this.vwSearchBar && this.vwSearchBar.close();
   },
 });
