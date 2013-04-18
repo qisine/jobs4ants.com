@@ -10,7 +10,8 @@ body, html {
 }
 
 #content-container {
-  height: 100%;
+  height: auto !important;
+  min-height: 100%;
   margin-bottom: -60px;
   overflow: hidden;
 }
@@ -39,6 +40,10 @@ body, html {
   background-color: #FFF;
   font-size: 1em;
   text-align: center;
+}
+
+#pusher {
+  height: 60px;
 }
 
 footer {
