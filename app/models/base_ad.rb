@@ -35,7 +35,7 @@ class BaseAd < ActiveRecord::Base
 
   def to_h
     h = {}
-    [:id, :type, :body, :title, :source, :link].each do |e|
+    [:id, :type, :body, :title, :source, :link, :company].each do |e|
       h[e] = (self.attributes[e.to_s] || "").to_s
     end
     h[:created_at] = created_at.strftime("%Y-%m-%d %H:%M")
