@@ -35,12 +35,12 @@ App.Routers.AppRouter = Backbone.Router.extend({
     App.dispatcher.trigger("kwds:change", $.trim(params["kwds"]));
     App.dispatcher.trigger("cats:change", cats);
     var v = new App.Views.OfferedAds({kwds: params["kwds"], page: params["page"], cats: _.clone(cats)});
-    this.vM.add(v).render();
+    this.vM.add(v);
   },
 
   showOfferedAd: function(id) {
     var v = new App.Views.ShowOfferedAd({modelId: id });
-    this.vM.add(v).render();
+    this.vM.add(v);
   },
 
   newOfferedAd: function() {
