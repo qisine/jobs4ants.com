@@ -83,7 +83,9 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
  
   handleError: function(error) {
-    App.viewManager.add(new App.Views.Notification({message: "囧，错误！", level: "error"})).render();
+    var v = new App.Views.Notification({message: "囧，错误！", level: "error"});
+    $("#notification").parent().remove();
+    $("#app-body").prepend(v.render().$el);
   },
 });
 
