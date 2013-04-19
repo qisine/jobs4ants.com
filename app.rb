@@ -53,11 +53,13 @@ get '/d/offered-ads/:id' do
   end
 end
 
-get '/d/work-locations/search' do
-  kwds = params[:kwds] || ""
+get '/d/work-locations' do
+  json(locations: WorkLocation.all.map(&:to_h))
+end
 
-  locs = WorkLocation.search(kwds).all
-  json(locations: locs)
+get '/d/work-locations/ac' do
+  kwds = params[:kwds] 
+  json(WorkLocation.search(kwds).map(&:to_h))
 end
 
 get '/d/job-categories' do
