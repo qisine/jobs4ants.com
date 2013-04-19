@@ -1,0 +1,14 @@
+#main-nav img {
+  height: 3em;
+}
+
+#main-nav > .row > div:not(:first-child) {
+  vertical-align:middle;
+  display:inline-block;
+  line-height: 3em;
+  text-align:center;
+}
+
+.color-white {
+  color: #FFF;
+}
