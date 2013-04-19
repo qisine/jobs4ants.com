@@ -1,7 +1,7 @@
 App.Views.Notification = Backbone.View.extend({
   type: "Notification",
   tmpl: JST["js/app/templates/shared/notification"],
-  el: "#notification-area",
+  tagName: "div",
   events: {
     "click a.dismissor" : "dismiss",
   },
@@ -15,10 +15,20 @@ App.Views.Notification = Backbone.View.extend({
   dismiss: function(ev) { 
     ev.preventDefault();
     this.close();
+    this.$el.children().remove();
   },
 
   render: function() {
-    this.$el.html(this.tmpl({message: this.message, level: this.level}));
+    var m = this.message;
+    if(m && m.join) { 
+      m = _.map(m, function(e) { return App.htmlEscape(e) });
+      m = "<ul><li>" + m.join("<li>") + "</ul>";
+      m = $("<div/>").text(m).html();
+    } else if(m) {
+      m = App.htmlEscape(m);
+    }
+    this.message = m;
+    this.$el.html(this.tmpl({message: m, level: this.level}));
     return this;
   },
 
