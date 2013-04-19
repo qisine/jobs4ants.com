@@ -1,5 +1,6 @@
 #main-nav img {
   height: 3em;
+  border-bottom: 3px solid #008080
 }
 
 #main-nav > .row > div:not(:first-child) {
@@ -7,8 +8,6 @@
   display:inline-block;
   line-height: 3em;
   text-align:center;
-}
-
-.color-white {
-  color: #FFF;
+  margin: 0 .5em 0;
+  border-bottom: 3px solid #00C0C0
 }

@@ -16,10 +16,6 @@ body, html {
   overflow: hidden;
 }
 
-header {
-  background-color: #00B0B0;
-}
-
 #notification-area {
   min-width: 30%;
   max-width: 50%;
