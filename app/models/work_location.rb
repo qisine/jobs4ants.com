@@ -4,9 +4,10 @@ class WorkLocation < ActiveRecord::Base
 
   validate :zip, :city, :canton, presence: true
 
-  scope :search_work_locations, ->(kwd) do
-    where("zip ILIKE '?' or city ILIKE '?' or city_transliterated ILIKE '?'", *([kwd]*3))
-      .limit(10)
+  scope :search, ->(kwd, lim=10) do
+    args = [ "#{kwd}%" ] + (["%#{kwd}%"]*2)
+    where("zip ILIKE ? or city ILIKE ? or city_transliterated ILIKE ?", *args)
+      .limit(lim)
       .order("zip ASC")
   end
 
