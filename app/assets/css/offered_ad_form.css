@@ -1,0 +1,9 @@
+.offered-ad-form {
+  margin: 0 auto;
+  width: 40%;
+}
+
+label[for='url'], #url {
+  position: absolute;
+  top: -100%;
+}

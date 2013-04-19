@@ -1,0 +1,22 @@
+<div id='new-offered-ad centered' >
+  <form class='form-horizontal offered-ad-form'>
+    <label for="url" required>url</label><input type='text' id='url' name='url'/>
+    <label for="email" required>邮箱 *</label><input id="email" name="email" type='email' maxlength="99"/>
+    <label for="company" required>公司 *</label><input id="company" name="company" type='text' maxlength="99"/>
+    <label for="job-category" required>行业 *</label>
+      <select id='job-category' name="job-category">
+        <option value="-1"></option>
+      <% _.each(cats.models, function(cat) { %>
+        <option value="<%= cat.get('id') %>"><%= cat.get('name') %></option>
+      <% }) %>
+      </select>
+    <label for="work-location">工作低点</label><input id="work-location" name="work-location" type="text" maxlength="99"/>
+    <label for="title" required>标题 *</label><input id="title" name="title" type='text' maxlength="99" class='span4'/>
+    <label for="body-text" required>内容 *</label><textarea id="body-text" name="body" maxlength='999' rows='10' class='span4' />
+    <label for="sqc" required>请回答用德文: Hauptstadt der Schweiz? *</label><input id="sqc" name="sqc"  type='text' />
+    <div class='form-actions'>
+      <button class='btn btn-primary'>OK啦！</button>
+      <a href='/' class='btn'>取消</a>
+    </div>
+  </form>
+</div>
