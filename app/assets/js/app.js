@@ -1,6 +1,7 @@
 //= require ./app/init
 //= require ./lib/underscore
 //= require ./lib/jquery-1.9.1
+//= require ./lib/jquery-ui-1.10.2.custom.js
 //= require ./lib/backbone
 //= require ./lib/view_manager
 //= require ./lib/cache.js
