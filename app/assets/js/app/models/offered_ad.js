@@ -30,9 +30,9 @@ App.Models.OfferedAd = Backbone.Model.extend({
   },
 
   validate: function(attrs, opts) {
-    var errors = []
+    var a = attrs, self = this, errors = [];
     _.each(["email", "company", "job_category", "title", "body"], function(e) {
-      if(!attrs[e]) errors.push(this.translations[e] + "不能为空");
+      if(!a[e]) errors.push(self.translations[e] + "不能为空");
     });
     if(attrs.email && !this.emailRegexp.exec(attrs.email.toUpperCase()))
       errors.push(this.translations.email + "不是正确的邮箱地址");

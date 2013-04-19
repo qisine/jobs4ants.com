@@ -36,8 +36,11 @@ App.Views.NewOfferedAd = Backbone.View.extend({
     var catId = parseInt(this.$el.find("#job-category :selected").val());
     if(catId && catId > 0) attrs["job_category"] = catId;
     var ad = new App.Models.OfferedAd(attrs);
-    var errors = ad.validate();
-    if(errors && errors.length > 0) handleError(errors);
+    if(!ad.isValid()) {
+      this.handleError(ad.validationError)
+      return;
+    }
+
     console.log("submitting a valid ad=>", ad);
     ad.save({
       success: function() {
