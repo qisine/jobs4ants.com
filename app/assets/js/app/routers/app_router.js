@@ -22,7 +22,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
     _.bindAll(this, "navigateTo", "searchOfferedAds", "handleError");
     App.dispatcher.on("reroute", this.navigateTo);
     App.dispatcher.on("error:load", this.handleError);
-    App.dispatcher.on("home:search:submit", function(kwds) {
+    App.dispatcher.on("home:search:submit show_offered_ad:search:submit", function(d) {
+      var kwds = d.kwds;
       var splat = $.trim(kwds);
       self.searchOfferedAds(splat ? "s/" + kwds : "");
     });
@@ -103,7 +104,8 @@ App.Routers.AppRouter.urlBuilder = function(data) {
 }
 
 //adapted from https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
-$(document).on("click", "a[href]:not(.dismissor)", function(ev) {
+/*
+ $(document).on("click", "a[href]:not([data-bypass])", function(ev) {
   var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
   var root = location.protocol + "//" + location.host + (App.root || "");
 
@@ -113,6 +115,7 @@ $(document).on("click", "a[href]:not(.dismissor)", function(ev) {
     Backbone.history.navigate(href.attr, true);
   }
 });
+*/
 
 /* Just duplicating browser functionality? Don't implement for the time being */
 /*

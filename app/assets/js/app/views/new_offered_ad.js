@@ -23,6 +23,7 @@ App.Views.NewOfferedAd = Backbone.View.extend({
   },
 
   onClose: function() {
+    this.undelegateEvents();
     this.autocomplete.off();
   },
 });

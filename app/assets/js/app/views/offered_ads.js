@@ -20,7 +20,6 @@ App.Views.OfferedAds = Backbone.View.extend({
     c.on("reset", this.render);
     c.on("paginate:success", function(data) {
       App.dispatcher.trigger("reroute", _.clone(data));
-      //self.render();
     });
     c.on("paginate:error", function(error) {
       console.log("error!", error);
@@ -30,7 +29,6 @@ App.Views.OfferedAds = Backbone.View.extend({
       data: _.clone(this.data),
       success: function(resp, status, xhr) {
         App.dispatcher.trigger("reroute", _.clone(self.data));
-        //self.render();
       },
       error: function(error) {
         console.log("error!", error);

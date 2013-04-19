@@ -17,8 +17,9 @@ App.Views.SearchBar = Backbone.View.extend({
   search: function(ev) {
     ev.preventDefault();
     var kwds = this.$el.find("#general-kwds").val();
+    var e = this.resetCats ? "show_offered_ad:search:submit" : "search:submit";
 
-    App.dispatcher.trigger("search:submit", {kwds: kwds, page: 1, resetCats: this.resetCats});
+    App.dispatcher.trigger(e, {kwds: kwds, page: 1, resetCats: this.resetCats});
   },
 
   updateValue: function(value) {

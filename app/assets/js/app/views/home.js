@@ -3,7 +3,7 @@ App.Views.Home = Backbone.View.extend({
   tmpl: JST["js/app/templates/home/index"],
   el: "#app-body",
   events: {
-    "click button": "search",
+    "click #home button": "search",
   },
 
   initialize: function() {
@@ -14,7 +14,7 @@ App.Views.Home = Backbone.View.extend({
     ev.preventDefault();
     var kwds = this.$el.find("#general-kwds").val();
 
-    App.dispatcher.trigger("home:search:submit", kwds);
+    App.dispatcher.trigger("home:search:submit", { kwds: kwds });
   },
 
   render: function() {
