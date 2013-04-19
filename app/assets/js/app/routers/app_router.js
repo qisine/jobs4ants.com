@@ -103,7 +103,7 @@ App.Routers.AppRouter.urlBuilder = function(data) {
 }
 
 //adapted from https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
-$(document).on("click", "a[href]:not(.back)", function(ev) {
+$(document).on("click", "a[href]:not(.dismissor)", function(ev) {
   var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
   var root = location.protocol + "//" + location.host + (App.root || "");
 
