@@ -1,5 +1,14 @@
 App.Models.OfferedAd = Backbone.Model.extend({
   previewLength: 150,
+  translations: {
+    "email": "邮箱",
+    "company": "公司",
+    "job_category": "行业",
+    "work_location": "工作低点",
+    "title": "标题",
+    "body": "内容",
+    "sqc": "安全问题",
+  },
 
   constructor: function(attributes, options) {
     if(attributes && attributes.id) {
@@ -18,6 +27,17 @@ App.Models.OfferedAd = Backbone.Model.extend({
     base = '/d/offered-ads'
     if(this.isNew()) return base; 
     return base + '/' + this.id;
+  },
+
+  validate: function(attrs, opts) {
+    var errors = []
+    _.each(["email", "company", "job_category", "title", "body"], function(e) {
+      if(!attrs[e]) errors.push(this.translations[e] + "不能为空");
+    });
+    if(attrs.email && !this.emailRegexp.exec(attrs.email.toUpperCase()))
+      errors.push(this.translations.email + "不是正确的邮箱地址");
+
+    if(errors.length > 0) return errors;
   },
 
   bodyPreview: function() {
