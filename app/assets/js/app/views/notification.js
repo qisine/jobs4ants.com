@@ -23,7 +23,6 @@ App.Views.Notification = Backbone.View.extend({
     if(m && m.join) { 
       m = _.map(m, function(e) { return App.htmlEscape(e) });
       m = "<ul><li>" + m.join("<li>") + "</ul>";
-      m = $("<div/>").text(m).html();
     } else if(m) {
       m = App.htmlEscape(m);
     }
