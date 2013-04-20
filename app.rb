@@ -77,8 +77,10 @@ post '/offered-ads' do
     j['work_location_id'] = loc.id
 
     OfferedAd.create!(j)
+    json({message: "ad successfully created"})
   rescue JSON::ParserError
-    400
+    status 400
+    json({message: "invalid JSON format"})
   end
 end
 
