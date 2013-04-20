@@ -7,6 +7,7 @@ gem "activerecord"
 gem "sinatra-activerecord"
 gem "ejs"
 gem "pg"
+gem "pony"
 
 group :test do
   gem "rspec"

@@ -2,6 +2,7 @@
 
 require 'yaml'
 require 'json'
+require 'pony'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/json'
@@ -13,6 +14,8 @@ Dir["./app/models/*.rb"].each do |f|
   require f
   also_reload f
 end
+
+ROOT_DOMAIN = "http://jobs4ants.com"
 
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
@@ -80,7 +83,8 @@ post '/d/offered-ads' do
   begin
     j = parse_json(request.env['rack.input'].read)
 
-    OfferedAd.create!(j)
+    ad = OfferedAd.create!(j)
+    send_notification(ad)
     json({message: "ad successfully created"})
   rescue JSON::ParserError
     status 400
@@ -142,5 +146,22 @@ helpers do
     info[:kwds] = p[:kwds].try(:strip)
     info[:cats] = p[:cats].try { |c| JSON.parse(c) } rescue []
     info
+  end
+
+  def send_notification(ad)
+    config, via_opts = {}, {}
+    YAML.load(IO.read("./config/email.yml"))["via_options"].each do |k,v|
+      via_opts[k.to_sym] = v
+    end
+    config[:via_options] = via_opts 
+
+    links = ["publish", "edit", "delete"].map { |action| "#{ROOT_DOMAIN}/#{action}?#{ad.uuid}" }
+    text = sprintf(IO.read("./app/email/confirmation_notification.txt"), *links)
+
+    config[:to] = ad.email
+    config[:subject] = "激活你的招聘贴 【#{ad.title}】"
+    config[:via] =  :smtp
+
+    Pony.mail(config)
   end
 end

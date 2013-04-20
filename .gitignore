@@ -2,7 +2,8 @@
 /log/*.log
 /tmp
 
-db/database.yml
+database.yml
+config/
 
 *~
 *.swp
