@@ -1,12 +1,12 @@
 class BaseAd < ActiveRecord::Base
   SOURCES = %w{ swissant swissinfo tingzi }
 
-  attr_accessible :company, :body, :title, :link, :source, :type, :work_location_id, :job_category_id, :published, :posted_at
-                  :uuid
+  attr_accessible  :company, :body, :title, :link, :source, :type, :work_location_id, :job_category_id,
+                   :published, :posted_at, :email, :uuid
   belongs_to :job_category
   belongs_to :work_location
 
-  validates :company, :body, :title, :job_category_id, presence: true
+  validates :email, :company, :body, :title, :job_category_id, presence: true
   validate :has_correct_source
 
   before_create do |ad|

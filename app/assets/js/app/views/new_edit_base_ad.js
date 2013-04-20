@@ -63,7 +63,7 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.tmpl({cats: this.cats}));
+    this.$el.html(this.tmpl({cats: this.cats, type: this.type}));
     var v = this.autocomplete = new App.Views.Autocomplete;
     this.$el.find("#job-category").after(v.render().$el);
     return this;
