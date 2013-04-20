@@ -19,6 +19,8 @@ FactoryGirl.define do
       if(evaluator.external)
         ad.source = BaseAd::SOURCES.sample 
         ad.link = "http://www.swissant.com/forum/forum.php"
+      else
+        ad.email = Faker::Internet.email
       end
     end
 
