@@ -17,10 +17,6 @@ end
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
 
-get %r{^/(?!d/).*} do
-  erb :index
-end
-
 get %r{/d/offered-ads/(\d+)/?} do |id|
   begin
     json(OfferedAd.find(id).to_h)
@@ -77,6 +73,11 @@ get %r{/offered-ads/(\d+)/(?:edit|delete)} do |id|
 
   session[:uuid] ||= {}
   session[:uuid] = @ad.uuid
+
+  erb :index
+end
+
+get %r{^/(?!d/).*} do
   erb :index
 end
 
@@ -93,7 +94,6 @@ post '/d/offered-ads' do
 end
 
 put %r{/d/offered-ads/(\d+)} do |id|
-  require 'debugger'; debugger
   begin
     ad = load_and_authorize(id)
     halt 401 if !ad
@@ -133,9 +133,8 @@ helpers do
   end
 
   def load_and_authorize(id, uuid=nil)
-    uuid ||= session[:uuid]
+    uuid ||= session["uuid"]
     ad = OfferedAd.find id
-    uuid = params[:uuid].try :strip
     return nil if ad.uuid != uuid
     ad
   end

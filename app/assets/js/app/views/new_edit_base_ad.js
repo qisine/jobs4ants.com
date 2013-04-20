@@ -18,7 +18,8 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
   },
 
   handleSubmit: function(ev) {
-    var self = this;
+    var self = this, ad = this.model;
+    if(!ad) ad = this.model = App.Models.OfferedAd.create();
 
     ev.preventDefault();
     var url = $.trim(this.$el.find("#url").val());
@@ -36,10 +37,8 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
     });
     var catId = parseInt(this.$el.find("#job-category :selected").val());
     if(catId && catId > 0) attrs["job_category_id"] = catId;
-    var ad = App.Models.OfferedAd.create();
     ad.set(attrs);
     if(!ad.isValid()) {
-    console.log('foo', ad);
       this.showNotification("error", ad.validationError)
       return;
     }
