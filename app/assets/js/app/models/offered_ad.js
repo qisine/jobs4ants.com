@@ -4,9 +4,10 @@ App.Models.OfferedAd = Backbone.Model.extend({
     "email": "邮箱",
     "company": "公司",
     "job_category": "行业",
-    "work_location": "工作低点",
+    "work_location_zip": "工作低点",
     "title": "标题",
     "body": "内容",
+    "job_category_id": "行业",
     "sqc": "安全问题",
   },
 
@@ -24,7 +25,7 @@ App.Models.OfferedAd = Backbone.Model.extend({
   },
 
   url: function() {
-    base = '/d/offered-ads'
+    base = '/offered-ads'
     if(this.isNew()) return base; 
     return base + '/' + this.id;
   },
