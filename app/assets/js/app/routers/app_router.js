@@ -14,6 +14,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     //numeric ids
     this.route(/^offered-ads\/(\d+)[\/#]?$/, "showOfferedAd");
     this.route(/^offered-ads\/(\d+)\/edit[\/#]?/, "editOfferedAd");
+    this.route(/^offered-ads\/(\d+)\/publish[\/#]?/, "publishOfferedAd");
     this.route(/^offered-ads\/(\d+)\/delete[\/#]?/, "deleteOfferedAd");
 
     //all other params
@@ -63,6 +64,18 @@ App.Routers.AppRouter = Backbone.Router.extend({
       success: function() {
         var v = new App.Views.EditOfferedAd({model: ad});
         self.vM.add(v);
+      },
+      error: this.handleError,
+    });
+  },
+
+  publishOfferedAd: function(id) {
+    var self = this;
+    var ad = App.Models.OfferedAd.create({id: id});
+    ad.fetch({
+      success: function() {
+        var v = new App.Views.PublishOfferedAd({model: ad});
+        self.vM.add(v).render();
       },
       error: this.handleError,
     });

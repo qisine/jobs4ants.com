@@ -58,12 +58,16 @@ get '/d/job-categories' do
   json(JobCategory.all.map(&:to_h))
 end
 
-get %r{/offered-ads/(\d+)/(?:edit|delete)} do |id|
-  @ad = load_and_authorize(id, params[:uuid])
-  halt 401 if !@ad
+get %r{/offered-ads/(\d+)/(edit|delete|publish)} do |id, action|
+  ad = load_and_authorize(id, params[:uuid])
+  halt 401 if !ad
 
-  session[:uuid] ||= {}
-  session[:uuid] = @ad.uuid
+  if(action == "publish")
+    ad.update_attributes!(published: true) 
+  else
+    session[:uuid] ||= {}
+    session[:uuid] = ad.uuid
+  end
 
   erb :index
 end
