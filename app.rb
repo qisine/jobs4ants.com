@@ -19,7 +19,7 @@ enable :sessions
 
 get %r{/d/offered-ads/(\d+)/?} do |id|
   begin
-    json(OfferedAd.find(id).to_h)
+    json(OfferedAd.where(published: true).find(id).to_h)
   rescue ActiveRecord::RecordNotFound
     status 404
     json(error: "record with #{id} not found")
@@ -43,15 +43,6 @@ get '/d/offered-ads/?*?' do
           kwds: params_[:kwds],
           cats: params_[:cats],
           models: models })
-end
-
-get '/d/offered-ads/:id' do
-  begin
-    json(OfferedAd.where(published: true).find(params[:id]).to_h)
-  rescue ActiveRecord::RecordNotFound
-    status 404
-    json({error: "couldn't find requested record"})
-  end
 end
 
 get '/d/work-locations' do
