@@ -21,7 +21,7 @@ App.Views.EditOfferedAd = App.Views.NewEditBaseAd.extend({
     _.each(ad.attributes, function(v, k) {
       if(k == "job_category") 
         el.find("[name='job_category_id']").val(v.get('id'));
-      else if (k == "work_location_zip")
+      else if (k == "work_location")
         el.find("[name='work_location_zip']").val(v.get('zip'));
       else if(!_.contains(["sqc", "url"], k))
         el.find("[name='" + k + "']").val(v);
