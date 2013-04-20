@@ -1,6 +1,6 @@
 App.Views.PublishOfferedAd = Backbone.View.extend({
   type: "publishOfferedAd",
-  tmpl: JST["js/app/templates/offered_ads/publish_offered_ad"],
+  tmpl: JST["js/app/templates/offered_ads/publish"],
   el: "#app-body",
 
   initialize: function() {
