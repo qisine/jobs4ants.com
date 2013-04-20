@@ -22,6 +22,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     _.bindAll(this, "navigateTo", "searchOfferedAds", "handleError");
     App.dispatcher.on("reroute", this.navigateTo);
     App.dispatcher.on("error:load", this.handleError);
+    App.dispatcher.on("offered_ad:edited", this.showOfferedAd);
     App.dispatcher.on("home:search:submit show_offered_ad:search:submit", function(d) {
       var kwds = d.kwds;
       var splat = $.trim(kwds);
@@ -54,7 +55,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
   
   editOfferedAd: function(id) {
-
+    var v = new App.Views.EditOfferedAd;
+    this.vM.add(v);
   },
 
   navigateTo: function(data) {
