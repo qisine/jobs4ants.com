@@ -66,7 +66,20 @@ get '/d/job-categories' do
   json(JobCategory.all.map(&:to_h))
 end
 
-post '/offered-ad' do
+post '/offered-ads' do
+  begin
+    j = JSON.parse(request.env['rack.input'].read)
+    halt 400 if(!j || j.delete("url").try { |u| u.strip.size > 0 })
+
+    zip = j.delete("work_location_zip").try(:strip)
+    loc = WorkLocation.where("zip = ?", zip).first
+    loc = WorkLocation.where("zip = '0000'").first if !loc 
+    j['work_location_id'] = loc.id
+
+    OfferedAd.create!(j)
+  rescue JSON::ParserError
+    400
+  end
 end
 
 put '/offered-ad/:id' do

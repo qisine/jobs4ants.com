@@ -9,6 +9,11 @@ class BaseAd < ActiveRecord::Base
   validates :company, :body, :title, :job_category_id, presence: true
   validate :has_correct_source
 
+  before_create do |ad|
+    require 'securerandom'
+    ad.uuid = SecureRandom.uuid 
+  end
+
   scope :paginate, ->(page=1, per_page=25) do
     page = page.to_i rescue 1
     page = 1 if !page.between?(1, 9999)
