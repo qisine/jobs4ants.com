@@ -155,11 +155,15 @@ helpers do
     end
     config[:via_options] = via_opts 
 
-    links = ["publish", "edit", "delete"].map { |action| "#{ROOT_DOMAIN}/#{action}?#{ad.uuid}" }
+    links = ["publish", "edit", "delete"].map { |action|
+      "#{ROOT_DOMAIN}/offered-ads/#{ad.id}/#{action}?uuid=#{ad.uuid}"
+    }
     text = sprintf(IO.read("./app/email/confirmation_notification.txt"), *links)
 
+    config[:from] = "cs@jobs4ants.com"
     config[:to] = ad.email
-    config[:subject] = "激活你的招聘贴 【#{ad.title}】"
+    config[:body] = text
+    config[:subject] = "激活你的招聘贴 [#{ad.title}]"
     config[:via] =  :smtp
 
     Pony.mail(config)
