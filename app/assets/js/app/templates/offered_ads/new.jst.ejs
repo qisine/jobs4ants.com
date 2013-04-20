@@ -4,7 +4,7 @@
     <label for="email" required>邮箱 *</label><input id="email" name="email" type='email' maxlength="99"/>
     <label for="company" required>公司 *</label><input id="company" name="company" type='text' maxlength="99"/>
     <label for="job-category" required>行业 *</label>
-      <select id='job-category' name="job-category">
+      <select id='job-category' name="job_category_id">
         <option value="-1"></option>
       <% _.each(cats.models, function(cat) { %>
         <option value="<%= cat.get('id') %>"><%= cat.get('name') %></option>
