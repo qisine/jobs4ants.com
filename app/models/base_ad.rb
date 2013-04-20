@@ -33,8 +33,8 @@ class BaseAd < ActiveRecord::Base
   end
 
   def has_correct_source
-    if(source && !SOURCES.index(source))
-      errors.add(:source, "source not included in the list")
+    if(source && source.strip.length > 0 && !SOURCES.index(source))
+      errors.add(:source, "not included in the list")
     end
   end
 
