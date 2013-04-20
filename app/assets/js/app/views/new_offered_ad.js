@@ -44,17 +44,23 @@ App.Views.NewOfferedAd = Backbone.View.extend({
     }
 
     console.log("submitting a valid ad=>", ad);
-    ad.save({
-      success: function() {
-        var msg =   "谢谢！我们已把确认邮件发到<b>"
-                    + ad.email
-                    + "</b>。请尽快登录你的邮箱，按照里面的指示完成发布你的帖子"
+    ad.save(null, {
+      success: function(model, response) {
+        console.log('ad successfully created!');
+        var msg =   "谢谢！我们已把确认邮件发到"
+                    + "[" + model.get('email') + "]"
+                    + "。请尽快登录你的邮箱，按照里面的指示完成发布你的帖子"
+        self.resetFields();
         self.showNotification("success", msg);
       },
       error: function(error) {
         App.dispatcher.trigger("error:load", error); 
       },
     });
+  },
+
+  resetFields: function() {
+    this.$el.find("input,textarea,select").val('');
   },
 
   showNotification: function(level, message) {
