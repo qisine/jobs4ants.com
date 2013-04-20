@@ -8,7 +8,11 @@ require 'sinatra/json'
 require 'active_record'
 require 'sinatra/activerecord'
 require './app/models/base_ad.rb'
-Dir["./app/models/*.rb"].each { |f| require f }
+also_reload './app/models/base_ad.rb'
+Dir["./app/models/*.rb"].each do |f|
+  require f
+  also_reload f
+end
 
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
