@@ -81,6 +81,19 @@ App.Routers.AppRouter = Backbone.Router.extend({
     });
   },
 
+  deleteOfferedAd: function(id) {
+    var self = this;
+    var ad = App.Models.OfferedAd.create({id: id});
+    ad.fetch({
+      success: function() {
+        var v = new App.Views.DeleteOfferedAd({model: ad});
+        self.vM.add(v).render();
+      },
+      error: this.handleError,
+    });
+  },
+
+
   navigateTo: function(data) {
     var url = this.constructor.urlBuilder(data) || "";
     console.log('reroute to =>', url);
