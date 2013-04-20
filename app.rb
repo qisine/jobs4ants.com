@@ -13,7 +13,7 @@ Dir["./app/models/*.rb"].each { |f| require f }
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
 
-get %r{^/(?!(?:d/|offered-ads/\d+/(?:edit|delete))).*} do
+get %r{^/(?!d/).*} do
   erb :index
 end
 
@@ -76,7 +76,7 @@ get %r{/offered-ads/(\d+)/(?:edit|delete)} do |id|
   erb :index
 end
 
-post '/offered-ads' do
+post '/d/offered-ads' do
   begin
     j = parse_json(request.env['rack.input'].read)
 
@@ -88,7 +88,7 @@ post '/offered-ads' do
   end
 end
 
-put %r{/offered-ads/(\d+)} do |id|
+put %r{/d/offered-ads/(\d+)} do |id|
   require 'debugger'; debugger
   begin
     ad = load_and_authorize(id)
@@ -104,7 +104,7 @@ put %r{/offered-ads/(\d+)} do |id|
   
 end
 
-delete %r{/offered-ads/(\d+)} do |id|
+delete %r{/d/offered-ads/(\d+)} do |id|
   ad = load_and_authorize(id)
   halt 401 if !ad
 

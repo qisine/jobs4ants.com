@@ -25,7 +25,7 @@ App.Models.OfferedAd = Backbone.Model.extend({
   },
 
   url: function() {
-    base = '/offered-ads'
+    base = '/d/offered-ads'
     if(this.isNew()) return base; 
     return base + '/' + this.id;
   },
