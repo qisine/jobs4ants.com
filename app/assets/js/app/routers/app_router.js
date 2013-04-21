@@ -1,5 +1,3 @@
-//= require ../views/offered_ads
-
 App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "(/)": "home",
