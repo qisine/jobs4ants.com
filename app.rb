@@ -99,7 +99,7 @@ put %r{/d/offered-ads/(\d+)} do |id|
 
     j = parse_json(request.env['rack.input'].read)
     ad.update_attributes!(j)
-    json({message: "ad successfully updated"})
+    json(ad.to_h)
   rescue JSON::ParserError
     status 400
     json({message: "invalid JSON format"})
