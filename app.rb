@@ -9,10 +9,11 @@ require 'sinatra/json'
 require 'active_record'
 require 'sinatra/activerecord'
 require './app/models/base_ad.rb'
-also_reload './app/models/base_ad.rb'
+
+also_reload './app/models/base_ad.rb' if development?
 Dir["./app/models/*.rb"].each do |f|
   require f
-  also_reload f
+  also_reload f if development?
 end
 
 ROOT_DOMAIN = production? ? "http://jobs4ants.com" : "http://0.0.0.0:9292"
