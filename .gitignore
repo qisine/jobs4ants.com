@@ -2,8 +2,8 @@
 /log/*.log
 /tmp
 
-database.yml
-config/
+config/database.yml
+config/email.yml
 
 *~
 *.swp

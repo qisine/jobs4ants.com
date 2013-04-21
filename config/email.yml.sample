@@ -1,0 +1,9 @@
+via_options:
+  address: your.domain.com
+  port: 25
+  enable_starttls_auto:  true
+  user_name:             your_user
+  password:              your_passwd
+  authentication:        login
+  domain:                your.domain.com
+  enable_starttls_auto: true
