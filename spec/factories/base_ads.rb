@@ -1,5 +1,3 @@
-require 'securerandom'
-
 FactoryGirl.define do
   factory :base_ad do
     ignore do
@@ -12,15 +10,14 @@ FactoryGirl.define do
     published { [true, false].sample }
     work_location { WorkLocation.all.sample }
     job_category { JobCategory.all.sample }
-    posted_at { Time.now - (Random.new.rand(100_000..10_000_000)) }
 
     after :build do |ad, evaluator|
-      ad.uuid = SecureRandom.uuid if ad.published
+      ad.email = Faker::Internet.email
       if(evaluator.external)
         ad.source = BaseAd::SOURCES.sample 
         ad.link = "http://www.swissant.com/forum/forum.php"
-      else
-        ad.email = Faker::Internet.email
+      elsif(ad.published)
+        ad.posted_at = Time.now - (Random.new.rand(100_000..10_000_000)) 
       end
     end
 

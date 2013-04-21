@@ -11,7 +11,9 @@ class BaseAd < ActiveRecord::Base
 
   before_create do |ad|
     require 'securerandom'
-    ad.uuid = SecureRandom.uuid 
+    require 'digest'
+
+    ad.uuid = Digest::SHA512.hexdigest(SecureRandom.uuid).force_encoding(Encoding::UTF_8) 
   end
 
   scope :paginate, ->(page=1, per_page=25) do
