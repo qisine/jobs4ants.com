@@ -8,9 +8,13 @@ window.App.viewManager = (function() {
     if(oldViewInst)
       oldViewInst.close();
 
-    this.views[newViewInst.type] = newViewInst;
-    return newViewInst
-  }
+    this.currentView = this.views[newViewInst.type] = newViewInst;
+    return newViewInst;
+  },
+
+  ViewManager.prototype.currentView = function() {
+    return this._currentView;
+  },
 
   return new ViewManager();
 })();
