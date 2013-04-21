@@ -86,6 +86,7 @@ module J4ADb
     ad = OfferedAd.new(post) 
     ad.email = "foo@bar.com"
     ad.job_category = JobCategory.where("code = 'OTHER'").first
+    ad.published = true
     puts "saving ad => #{ad.title}"
     ad.save!
   end 
