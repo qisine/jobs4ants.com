@@ -28,9 +28,4 @@ App.Views.EditOfferedAd = App.Views.NewEditBaseAd.extend({
     }, this);
     return this;
   },
-
-  onClose: function() {
-    this.undelegateEvents();
-    this.autocomplete.off();
-  },
 });

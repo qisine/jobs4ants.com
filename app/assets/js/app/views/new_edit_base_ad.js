@@ -7,7 +7,6 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "render");
-    this.model = this.options.model;
     var c = this.cats = new App.Collections.JobCategories;
     c.fetch({
       success: this.render,
@@ -76,6 +75,7 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
   },
 
   render: function() {
+    this.delegateEvents();
     this.$el.html(this.tmpl({cats: this.cats, type: this.type}));
     var v = this.autocomplete = new App.Views.Autocomplete;
     this.$el.find("#job-category").after(v.render().$el);

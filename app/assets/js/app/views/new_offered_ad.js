@@ -16,9 +16,4 @@ App.Views.NewOfferedAd = App.Views.NewEditBaseAd.extend({
     this.resetFields();
     this.showNotification("success", msg);
   },
- 
-  onClose: function() {
-    this.undelegateEvents();
-    this.autocomplete.off();
-  },
 });
