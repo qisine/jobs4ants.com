@@ -15,7 +15,7 @@ ActiveRecord::Base.configurations =
 ActiveRecord::Base.establish_connection(ENV['J4A_ENV'] || "development")
 
 module Mayi
-  BASE_URL = "http://www.swissant.com/forum/forum.php?mod=forumdisplay&fid=6&filter=typeid&typeid=10&page=%i"
+  BASE_URL = "http://www.swissant.com/forum/forum.php?mod=forumdisplay&fid=6&filter=typeid&typeid=10&orderby=dateline&page=%i"
   def self.fetch_links(num)
     url = sprintf(BASE_URL, num)
     puts("fetching page ##{num} (#{url})")
@@ -55,11 +55,12 @@ module Swissinfo
   def self.fetch_page(url)
     doc = Nokogiri::HTML(open(url))
     dt = doc.css("td[class='gensmall'] > div")[1].text.strip
-    dt = dt =~ /发表于 :(.*)/ ? $1.strip : dt
+    parts = dt.split(/[^\d]+/).reject { |e| e && e.strip.empty? }
+    valid_date = "#{parts[2]}-#{"%02d" % parts[0]}-#{"%02d" % parts[1]}"
     usr = doc.css("tr > td > b[class='postauthor']").first.text.strip
     title = doc.css("tr[class='row1'] td[class='gensmall'] > div > a").first.text.strip
     body = doc.css("td > div[class='postbody oembed-content']").first.text.strip
-    {source: 'swissinfo', link: url, posted_at: dt, company: usr, title: title, body: body }
+    {source: 'swissinfo', link: url, posted_at: valid_date, company: usr, title: title, body: body }
   end
 end
 
