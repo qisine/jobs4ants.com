@@ -125,6 +125,7 @@ def process_fg(opts = {})
   src = Kernel.const_get(opts[:src] || "Mayi")
   fetch_all(src, opts[:from], opts[:to]) do |h|
     puts (h.values).join(",")
+    true
   end
 end
 
