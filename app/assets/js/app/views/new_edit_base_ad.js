@@ -44,9 +44,14 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
     }
 
     console.log("submitting a valid ad=>", ad);
+    this.toggleEnableCtrls();
     ad.save(null, {
-      success: this.handleSuccess,
+      success: function(model, response) {
+        self.toggleEnableCtrls(true);
+        self.handleSuccess(model, response);
+      },
       error: function(error) {
+        self.toggleEnableCtrls(true);
         App.dispatcher.trigger("error:load", error); 
       },
     });
@@ -54,6 +59,14 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
 
   resetFields: function() {
     this.$el.find("input,textarea,select").val('');
+  },
+
+  toggleEnableCtrls: function(enable) {
+    var els = this.$el.find("input,textarea,select,.btn");
+    if(enable)
+      els.removeAttr("disabled");
+    else
+      els.attr("disabled", "disabled")
   },
 
   showNotification: function(level, message) {
