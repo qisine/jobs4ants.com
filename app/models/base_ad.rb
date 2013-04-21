@@ -29,9 +29,10 @@ class BaseAd < ActiveRecord::Base
 
   scope :search, ->(kwds) do
     kwds = kwds || ""
-    joins(:work_location)
+    joins("LEFT JOIN work_locations ON work_locations.id = base_ads.work_location_id")
     .joins(:job_category)
     .where("company ILIKE ? OR title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwds}%"]*6))
+    .order("posted_at, created_at DESC NULLS LAST")
   end
 
   def has_correct_source
