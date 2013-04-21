@@ -13,7 +13,7 @@ class BaseAd < ActiveRecord::Base
     require 'securerandom'
     require 'digest'
 
-    ad.uuid = Digest::SHA512.hexdigest(SecureRandom.uuid).force_encoding(Encoding::UTF_8) 
+    ad.uuid = Digest::SHA256.hexdigest(SecureRandom.uuid).force_encoding(Encoding::UTF_8) 
   end
 
   scope :paginate, ->(page=1, per_page=25) do
