@@ -38,7 +38,7 @@ get '/d/offered-ads/?*?' do
 
   search_count = ads.count
   ads = ads.paginate(params_[:page], params_[:per_page]) 
-  models = ads.sort { |a,b| a.created_at <=> b.created_at }.reverse.map(&:to_h)
+  models = ads.map(&:to_h)
 
   json({  page: params_[:page],
           perPage: params_[:per_page],

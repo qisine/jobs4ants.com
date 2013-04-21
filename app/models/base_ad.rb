@@ -24,7 +24,7 @@ class BaseAd < ActiveRecord::Base
     per_page = 25 if per_page < 1
     
     return scoped if per_page >= self.count
-    order("created_at desc").offset((page-1) * per_page).limit(per_page)
+    order_by_posted_at.offset((page-1) * per_page).limit(per_page)
   end
 
   scope :search, ->(kwds) do
@@ -32,7 +32,11 @@ class BaseAd < ActiveRecord::Base
     joins("LEFT JOIN work_locations ON work_locations.id = base_ads.work_location_id")
     .joins(:job_category)
     .where("company ILIKE ? OR title ILIKE ? OR body ILIKE ? OR work_locations.city ILIKE ? OR work_locations.city_transliterated ILIKE ? OR job_categories.name ILIKE ?", *(["%#{kwds}%"]*6))
-    .order("posted_at, created_at DESC NULLS LAST")
+    .order_by_posted_at
+  end
+
+  scope :order_by_posted_at, ->() do
+    order("posted_at DESC NULLS LAST")
   end
 
   def has_correct_source
