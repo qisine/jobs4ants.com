@@ -15,7 +15,7 @@ Dir["./app/models/*.rb"].each do |f|
   also_reload f
 end
 
-ROOT_DOMAIN = "http://jobs4ants.com"
+ROOT_DOMAIN = production? ? "http://jobs4ants.com" : "http://0.0.0.0:9292"
 
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
