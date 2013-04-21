@@ -22,6 +22,7 @@ EMAIL_TEMPLATE = File.join(File.dirname(__FILE__), "/app/email/confirmation_noti
 
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
+set :session_secret, "an94we8gha048hq92h8g3HOWSObuuoawuo"
 
 get %r{/d/offered-ads/(\d+)/?} do |id|
   begin
