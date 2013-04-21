@@ -17,6 +17,8 @@ Dir["./app/models/*.rb"].each do |f|
 end
 
 ROOT_DOMAIN = production? ? "http://jobs4ants.com" : "http://0.0.0.0:9292"
+EMAIL_CONFIG = File.join(File.dirname(__FILE__), "/config/email.yml")
+EMAIL_TEMPLATE = File.join(File.dirname(__FILE__), "/app/email/confirmation_notification.txt")
 
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
@@ -151,7 +153,7 @@ helpers do
 
   def send_notification(ad)
     config, via_opts = {}, {}
-    YAML.load(IO.read("./config/email.yml"))["via_options"].each do |k,v|
+    YAML.load(IO.read(EMAIL_CONFIG))["via_options"].each do |k,v|
       via_opts[k.to_sym] = v
     end
     config[:via_options] = via_opts 
@@ -159,7 +161,7 @@ helpers do
     links = ["publish", "edit", "delete"].map { |action|
       "#{ROOT_DOMAIN}/offered-ads/#{ad.id}/#{action}?uuid=#{ad.uuid}"
     }
-    text = sprintf(IO.read("./app/email/confirmation_notification.txt"), *links)
+    text = sprintf(IO.read(EMAIL_TEMPLATE), *links)
 
     config[:from] = "cs@jobs4ants.com"
     config[:to] = ad.email
