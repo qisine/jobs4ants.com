@@ -66,7 +66,7 @@ get %r{/offered-ads/(\d+)/(edit|delete|publish)} do |id, action|
   halt 401 if !ad
 
   if(action == "publish")
-    ad.update_attributes!(published: true) 
+    ad.update_attributes!(published: true, posted_at: Time.now)
   else
     session[:uuid] ||= {}
     session[:uuid] = ad.uuid
