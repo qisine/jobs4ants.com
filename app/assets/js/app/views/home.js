@@ -1,7 +1,6 @@
 App.Views.Home = App.Views.J4AView.extend({
   type: "home",
   tmpl: JST["js/app/templates/home/index"],
-  el: "#app-body",
   events: {
     "click #home button": "search",
   },
@@ -18,7 +17,6 @@ App.Views.Home = App.Views.J4AView.extend({
   },
 
   render: function() {
-    this.delegateEvents();
     this.$el.html(this.tmpl());
     return this;
   },

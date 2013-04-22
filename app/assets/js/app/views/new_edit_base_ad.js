@@ -1,5 +1,4 @@
 App.Views.NewEditBaseAd = App.Views.J4AView.extend({
-  el: "#app-body",
   tmpl: JST["js/app/templates/offered_ads/new_edit"],
   events: {
     "click .btn-primary": "handleSubmit",

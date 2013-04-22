@@ -1,7 +1,6 @@
 App.Views.PublishOfferedAd = App.Views.J4AView.extend({
   type: "publishOfferedAd",
   tmpl: JST["js/app/templates/offered_ads/publish"],
-  el: "#app-body",
 
   initialize: function() {
     this.model = this.options.model;

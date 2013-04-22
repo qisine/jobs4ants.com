@@ -9,6 +9,7 @@ App.AppRouter = Backbone.Router.extend({
     var vM = this.vM = App.viewManager;
     var self = this;
 
+    this.appBody = new App.Views.J4AView({ el: "#app-body" }),
     //numeric ids
     this.route(/^offered-ads\/(\d+)[\/#]?$/, "showOfferedAd");
     this.route(/^offered-ads\/(\d+)\/edit[\/#]?/, "editOfferedAd");
@@ -18,7 +19,7 @@ App.AppRouter = Backbone.Router.extend({
     //all other params
     this.route(/^offered-ads\/((?!\d+|new[\/#]?).+)$/,   "searchOfferedAds");
 
-    _.bindAll(this, "navigateTo", "searchOfferedAds", "handleError");
+    _.bindAll(this, "navigateTo", "searchOfferedAds");
     App.dispatcher.on("reroute", this.navigateTo);
     App.dispatcher.on("offered_ad:edited", function(id) {
       self.navigate("offered-ads/" + id, {trigger: true});
@@ -31,8 +32,8 @@ App.AppRouter = Backbone.Router.extend({
   },
 
   home: function() {
-    var v = new App.Views.Home().render();
-    this.vM.add(v).render();
+    var v = new App.Views.Home();
+    this.appBody.$el.html(this.vM.add(v).render().el);
   },
 
   searchOfferedAds: function(splat) {
@@ -41,17 +42,17 @@ App.AppRouter = Backbone.Router.extend({
     App.dispatcher.trigger("kwds:change", $.trim(params.kwds));
     App.dispatcher.trigger("cats:change", cats);
     var v = new App.Views.OfferedAds({kwds: params.kwds, page: params.page, cats: _.clone(cats)});
-    this.vM.add(v);
+    this.appBody.$el.html(this.vM.add(v).el);
   },
 
   showOfferedAd: function(id) {
     var v = new App.Views.ShowOfferedAd({modelId: id });
-    this.vM.add(v);
+    this.appBody.$el.html(this.vM.add(v).el);
   },
 
   newOfferedAd: function() {
     var v = new App.Views.NewOfferedAd;
-    this.vM.add(v);
+    this.appBody.$el.html(this.vM.add(v).el);
   },
   
   editOfferedAd: function(id) {
@@ -60,9 +61,9 @@ App.AppRouter = Backbone.Router.extend({
     ad.fetch({
       success: function() {
         var v = new App.Views.EditOfferedAd({model: ad});
-        self.vM.add(v);
+        this.appBody.$el.html(self.vM.add(v).el);
       },
-      error: this.handleError,
+      error: this.appBody.handleError,
     });
   },
 
@@ -72,9 +73,9 @@ App.AppRouter = Backbone.Router.extend({
     ad.fetch({
       success: function() {
         var v = new App.Views.PublishOfferedAd({model: ad});
-        self.vM.add(v).render();
+        this.appBody.$el.html(self.vM.add(v).render().el);
       },
-      error: this.handleError,
+      error: this.appBody.handleError,
     });
   },
 
@@ -84,9 +85,9 @@ App.AppRouter = Backbone.Router.extend({
     ad.fetch({
       success: function() {
         var v = new App.Views.DeleteOfferedAd({model: ad});
-        self.vM.add(v).render();
+        this.appBody.$el.html(self.vM.add(v).render().el);
       },
-      error: this.handleError,
+      error: this.appBody.handleError,
     });
   },
 
@@ -115,12 +116,6 @@ App.AppRouter = Backbone.Router.extend({
     result = _.reject(result.split("-"), function(e) { $.trim(e) });
     return result.length > 0 ? result : undefined;
   },
- 
-  handleError: function(error) {
-    var v = new App.Views.Notification({message: "囧，错误！", level: "error"});
-    $("#notification").parent().remove();
-    $("#app-body").prepend(v.render().$el);
-  },
 });
 
 App.AppRouter.urlBuilder = function(data) {
@@ -138,17 +133,3 @@ App.AppRouter.urlBuilder = function(data) {
 
   return params.join("/");
 }
-
-//adapted from https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
-/*
- $(document).on("click", "a[href]:not([data-bypass])", function(ev) {
-  var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
-  var root = location.protocol + "//" + location.host + (App.root || "");
-
-  if (href.prop.slice(0, root.length) === root) {
-    ev.preventDefault();
-
-    Backbone.history.navigate(href.attr, true);
-  }
-});
-*/
