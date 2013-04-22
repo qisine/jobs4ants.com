@@ -1,4 +1,4 @@
-App.Views.ShowOfferedAd = Backbone.View.extend({
+App.Views.ShowOfferedAd = App.Views.J4AView.extend({
   type: "showOfferedAd",
   tmpl: JST["js/app/templates/offered_ads/show"],
   el: "#app-body",
