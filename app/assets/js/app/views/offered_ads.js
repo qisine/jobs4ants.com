@@ -43,12 +43,12 @@ App.Views.OfferedAds = Backbone.View.extend({
   },
 
   render: function() {
-    this.vwCats = new App.Views.JobCategories({cats: _.clone(this.data["cats"])}).render();
+    this.vwCats = new App.Views.JobCategories({cats: _.clone(this.data.cats)}).render();
     this.$el.html(this.tmpl({collection: this.collection }));
     this.vwPaginator = new App.Views.Paginator({collection: this.collection});
     this.$el.find("#offered-ads").append(this.vwPaginator.render().$el);
     this.$el.find("#job-categories").append(this.vwCats.$el);
-    this.vwSearchBar = new App.Views.SearchBar({ kwds: this.data["kwds"] }).render();
+    this.vwSearchBar = new App.Views.SearchBar({ kwds: this.data.kwds }).render();
     this.$el.prepend(this.vwSearchBar.$el);
     return this;
   },
