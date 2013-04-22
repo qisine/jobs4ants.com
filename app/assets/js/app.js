@@ -6,6 +6,7 @@
 //= require ./lib/view_manager
 //= require ./lib/cache.js
 //= require_tree ./app/templates
+//= require ./app/views/extensions
 //= require_tree ./app
 
 _.extend(window.App, {
@@ -19,12 +20,5 @@ _.extend(window.App, {
   htmlEscape: function(str) { return $("<div/>").text(str).html() },
   emailRegexp: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/,
 });
-
-Backbone.View.prototype.close = function() {
-  this.$el.off();
-  this.undelegateEvents();
-  this.onClose && this.onClose();
-  //this.el = this.$el = undefined;
-}
 
 App.init();
