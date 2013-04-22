@@ -1,7 +1,6 @@
 App.Views.ShowOfferedAd = App.Views.J4AView.extend({
   type: "showOfferedAd",
   tmpl: JST["js/app/templates/offered_ads/show"],
-  el: "#app-body",
 
   initialize: function() {
     _.extend(this, this.options);

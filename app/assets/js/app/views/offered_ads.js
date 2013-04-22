@@ -3,7 +3,6 @@
 App.Views.OfferedAds = Backbone.View.extend({
   type: "indexOfferedAds",
   tmpl: JST["js/app/templates/offered_ads/index"],
-  el: "#app-body",
 
   initialize: function() {
     _.bindAll(this, "render", "parseOptions", "handleUpdates");

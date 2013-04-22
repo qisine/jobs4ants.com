@@ -1,7 +1,6 @@
 App.Views.DeleteOfferedAd = App.Views.J4AView.extend({
   type: "deleteOfferedAd",
   tmpl: JST["js/app/templates/offered_ads/delete"],
-  el: "#app-body",
   events: {
     'click .btn-primary': 'handleConfirm',
   },
