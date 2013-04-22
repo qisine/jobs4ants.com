@@ -12,7 +12,7 @@
 _.extend(window.App, {
   init: function() {
     $(function() {
-      new App.Routers.AppRouter;
+      new App.AppRouter;
       Backbone.history.start({pushState: true});
     });
   },
