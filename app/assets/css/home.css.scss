@@ -1,0 +1,23 @@
+#home {
+  text-align: center;
+  margin-top: 10%;
+
+  form {
+    margin: 0 auto;
+  }
+
+  input[type='search'] {
+    width: 25em;
+    height: 2em;
+    padding: .5em;
+  }
+
+  button {
+    height: 3em;
+  }
+
+  #browse {
+    margin-top: 1em;
+    font-size: 2em;
+  }
+}
