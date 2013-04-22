@@ -10,11 +10,11 @@ window.App.viewManager = (function() {
 
     this.currentView = this.views[newViewInst.type] = newViewInst;
     return newViewInst;
-  },
+  }
 
   ViewManager.prototype.currentView = function() {
     return this._currentView;
-  },
+  }
 
   return new ViewManager();
 })();
