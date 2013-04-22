@@ -3,12 +3,16 @@ source "http://rubygems.org"
 gem "thin"
 gem "sinatra"
 gem "sinatra-contrib"
-gem "sprockets"
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "ejs"
 gem "pg"
 gem "pony"
+gem "sprockets"
+gem 'sprockets-helpers'
+gem 'sprockets-sass'
+gem 'compass'
+gem 'coffee-script'
 
 group :test do
   gem "rspec"

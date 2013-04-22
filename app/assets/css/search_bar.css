@@ -1,9 +1,0 @@
-#search-bar input[type='search'] {
-  width: 20em;
-  padding: .5em;
-  height: 2em;
-}
-
-#search-bar button {
-  height: 3em;
-}
