@@ -35,7 +35,7 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
       attrs[this.name] = $.trim($(this).val());
     });
     var catId = parseInt(this.$el.find("#job-category :selected").val());
-    if(catId && catId > 0) attrs["job_category_id"] = catId;
+    if(catId && catId > 0) attrs.job_category_id = catId;
     ad.set(attrs);
     if(!ad.isValid()) {
       this.showNotification("error", ad.validationError)

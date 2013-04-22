@@ -37,11 +37,11 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
 
   searchOfferedAds: function(splat) {
-    var params = this.paramsFromSplat(decodeURIComponent(splat)), cats = this.parseArrayParam(params["cats"]); 
+    var params = this.paramsFromSplat(decodeURIComponent(splat)), cats = this.parseArrayParam(params.cats); 
     console.log("splat => ", splat, "|params =>", params, "|cats =>", cats);
-    App.dispatcher.trigger("kwds:change", $.trim(params["kwds"]));
+    App.dispatcher.trigger("kwds:change", $.trim(params.kwds));
     App.dispatcher.trigger("cats:change", cats);
-    var v = new App.Views.OfferedAds({kwds: params["kwds"], page: params["page"], cats: _.clone(cats)});
+    var v = new App.Views.OfferedAds({kwds: params.kwds, page: params.page, cats: _.clone(cats)});
     this.vM.add(v);
   },
 
