@@ -14,6 +14,6 @@ App.Views.NewOfferedAd = App.Views.NewEditBaseAd.extend({
                 + "[" + model.get('email') + "]"
                 + "。请尽快登录你的邮箱，按照里面的指示完成发布你的帖子"
     this.resetFields();
-    this.showNotification("success", msg);
+    this.notifySuccess(msg);
   },
 });

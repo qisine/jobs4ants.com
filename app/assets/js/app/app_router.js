@@ -20,7 +20,6 @@ App.AppRouter = Backbone.Router.extend({
 
     _.bindAll(this, "navigateTo", "searchOfferedAds", "handleError");
     App.dispatcher.on("reroute", this.navigateTo);
-    App.dispatcher.on("error:load", this.handleError);
     App.dispatcher.on("offered_ad:edited", function(id) {
       self.navigate("offered-ads/" + id, {trigger: true});
     });

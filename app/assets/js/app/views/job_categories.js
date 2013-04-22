@@ -20,10 +20,6 @@ App.Views.JobCategories = Backbone.View.extend({
     c.on("reset", this.render);
     c.fetch({
       success: function(resp, status, xhr) { /*App.dispatcher.trigger("");*/ },
-      error: function(error) {
-        console.log("error!", error);
-        App.dispatcher.trigger("error:load", error);
-      },
       reset: true,
     });
   },
