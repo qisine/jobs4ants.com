@@ -1,4 +1,4 @@
-App.Routers.AppRouter = Backbone.Router.extend({
+App.AppRouter = Backbone.Router.extend({
   routes: {
     "(/)": "home",
     "offered-ads(/)": "searchOfferedAds",
@@ -124,7 +124,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
 });
 
-App.Routers.AppRouter.urlBuilder = function(data) {
+App.AppRouter.urlBuilder = function(data) {
   var params = [], prefixes = {page: "p/", kwds: "s/", cats: "c/"};
   if(!data || (data && _.isEmpty(data))) return;
 
@@ -151,13 +151,5 @@ App.Routers.AppRouter.urlBuilder = function(data) {
 
     Backbone.history.navigate(href.attr, true);
   }
-});
-*/
-
-/* Just duplicating browser functionality? Don't implement for the time being */
-/*
-$(document).on("click", "a.back", function(ev) {
- ev.preventDefault();
- Backbone.history.back();
 });
 */
