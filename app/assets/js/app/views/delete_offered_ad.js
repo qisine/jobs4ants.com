@@ -1,4 +1,4 @@
-App.Views.DeleteOfferedAd = Backbone.View.extend({
+App.Views.DeleteOfferedAd = App.Views.J4AView.extend({
   type: "deleteOfferedAd",
   tmpl: JST["js/app/templates/offered_ads/delete"],
   el: "#app-body",
@@ -19,9 +19,6 @@ App.Views.DeleteOfferedAd = Backbone.View.extend({
         var message = "好啊！你的帖子已被删除。。。";
         self.$el.prepend(new App.Views.Notification({message: message, level: "success"}).render().$el);
         self.$el.find(".btn").attr("disabled", "disabled");
-      },
-      error: function(error) {
-        App.dispatcher.trigger("error:load", error);    
       },
     });
   },

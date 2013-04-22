@@ -4,7 +4,7 @@
 //= require ./app/init
 //= require_tree ./app/templates
 //= require_directory ./app
-//= require ./app/views/extensions
+//= require ./app/views/j4a_view
 //= require_tree ./app
 
 _.extend(window.App, {

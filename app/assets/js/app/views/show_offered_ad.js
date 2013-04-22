@@ -24,10 +24,6 @@ App.Views.ShowOfferedAd = Backbone.View.extend({
         console.log('fetched model=>', self.model);
         //self.render();
       },
-      error: function(error) {
-        console.log("error!", error);
-        App.dispatcher.trigger("error:load", error);
-      },
     });
   },
 

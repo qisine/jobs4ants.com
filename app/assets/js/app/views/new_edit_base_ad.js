@@ -1,4 +1,4 @@
-App.Views.NewEditBaseAd = Backbone.View.extend({
+App.Views.NewEditBaseAd = App.Views.J4AView.extend({
   el: "#app-body",
   tmpl: JST["js/app/templates/offered_ads/new_edit"],
   events: {
@@ -7,12 +7,11 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "render");
+    App.Views.J4AView.prototype.initialize.apply(this, arguments);
+
     var c = this.cats = new App.Collections.JobCategories;
     c.fetch({
       success: this.render,
-      error: function(error) {
-        App.dispatcher.trigger("error:load", error);
-      },
     });
   },
 
@@ -26,7 +25,7 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
 
     var sqc = $.trim(this.$el.find("#sqc").val());
     if(!sqc || sqc.toLowerCase() !== "bern") {
-      this.showNotification("error", "安全问题回答不对！");
+      this.notifyError("安全问题回答不对！");
       return;
     }
 
@@ -38,7 +37,7 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
     if(catId && catId > 0) attrs.job_category_id = catId;
     ad.set(attrs);
     if(!ad.isValid()) {
-      this.showNotification("error", ad.validationError)
+      this.notifyError(ad.validationError);
       return;
     }
 
@@ -51,7 +50,7 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
       },
       error: function(error) {
         self.toggleEnableCtrls(true);
-        App.dispatcher.trigger("error:load", error); 
+        this.notifyError("存贴中没成功。。。");
       },
     });
   },
@@ -66,12 +65,6 @@ App.Views.NewEditBaseAd = Backbone.View.extend({
       els.removeAttr("disabled");
     else
       els.attr("disabled", "disabled")
-  },
-
-  showNotification: function(level, message) {
-    this.notification && this.notification.remove();
-    var v = this.notification = new App.Views.Notification({message: message, level: level})
-    this.$el.prepend(v.render().$el);
   },
 
   render: function() {
