@@ -18,6 +18,7 @@ App.Views.Home = Backbone.View.extend({
   },
 
   render: function() {
+    this.delegateEvents();
     this.$el.html(this.tmpl());
     return this;
   },
