@@ -8,6 +8,7 @@ App.Views.PublishOfferedAd = App.Views.J4AView.extend({
 
   render: function() {
     this.$el.html(this.tmpl({model: this.model}));
+    return this;
   },
 
   onClose: function() {
