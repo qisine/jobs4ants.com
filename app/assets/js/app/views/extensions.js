@@ -3,6 +3,7 @@ _.extend(Backbone.View.prototype, {
     this.onClose && this.onClose();
     this.$el.off();
     this.undelegateEvents();
+    this.stopListening();
     this.remove();
   },
 });

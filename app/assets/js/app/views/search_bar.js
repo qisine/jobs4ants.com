@@ -9,17 +9,14 @@ App.Views.SearchBar = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, "updateValue");
     this.kwds = this.options.kwds;
-    this.resetCats = this.options.resetCats;
     if(this.kwds) this.updateValue(this.kwds);
-    App.dispatcher.on("kwds:change", this.updateValue);
+    this.listenTo(App.dispatcher, "kwds:change", this.updateValue);
   },
 
   search: function(ev) {
     ev.preventDefault();
     var kwds = this.$el.find("#general-kwds").val();
-    var e = this.resetCats ? "show_offered_ad:search:submit" : "search:submit";
-
-    App.dispatcher.trigger(e, {kwds: kwds, page: 1, resetCats: this.resetCats});
+    this.trigger("search:submit", {kwds: kwds, page: 1});
   },
 
   updateValue: function(value) {
@@ -30,8 +27,4 @@ App.Views.SearchBar = Backbone.View.extend({
     this.$el.html(this.tmpl({kwds: this.kwds}));
     return this;
   },
-
-  onClose: function() {
-    this.undelegateEvents();
-  }
 });

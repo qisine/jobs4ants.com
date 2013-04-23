@@ -5,7 +5,6 @@ App.Views.EditOfferedAd = App.Views.NewEditBaseAd.extend({
 
   initialize: function() {
     _.bindAll(this, "handleSuccess");
-    this.model = this.options.model;
     App.Views.NewEditBaseAd.prototype.initialize.apply(this, arguments); 
   },
 
