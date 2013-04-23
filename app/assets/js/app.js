@@ -1,4 +1,5 @@
 //= require ./lib/jquery-1.9.1
+//= require ./lib/bootstrap
 //= require ./lib/underscore
 //= require_directory ./lib
 //= require ./app/init
