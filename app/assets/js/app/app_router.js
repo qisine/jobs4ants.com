@@ -9,7 +9,7 @@ App.AppRouter = Backbone.Router.extend({
     var vM = this.vM = App.viewManager;
     var self = this;
 
-    this.appBody = new App.Views.J4AView({ el: "#app-body" }),
+    this.appBody = new App.Views.AppBody;
     //numeric ids
     this.route(/^offered-ads\/(\d+)[\/#]?$/, "showOfferedAd");
     this.route(/^offered-ads\/(\d+)\/edit[\/#]?/, "editOfferedAd");
@@ -61,7 +61,7 @@ App.AppRouter = Backbone.Router.extend({
     ad.fetch({
       success: function() {
         var v = new App.Views.EditOfferedAd({model: ad});
-        this.appBody.$el.html(self.vM.add(v).el);
+        self.appBody.$el.html(self.vM.add(v).el);
       },
       error: this.appBody.handleError,
     });
@@ -73,7 +73,7 @@ App.AppRouter = Backbone.Router.extend({
     ad.fetch({
       success: function() {
         var v = new App.Views.PublishOfferedAd({model: ad});
-        this.appBody.$el.html(self.vM.add(v).render().el);
+        self.appBody.$el.html(self.vM.add(v).render().el);
       },
       error: this.appBody.handleError,
     });
@@ -85,7 +85,7 @@ App.AppRouter = Backbone.Router.extend({
     ad.fetch({
       success: function() {
         var v = new App.Views.DeleteOfferedAd({model: ad});
-        this.appBody.$el.html(self.vM.add(v).render().el);
+        self.appBody.$el.html(self.vM.add(v).render().el);
       },
       error: this.appBody.handleError,
     });
