@@ -2,29 +2,7 @@
   <div class="span2" id="job-categories">
   </div>
   <div class="span10" id="ads-body">
-    <div id='offered-ads'> 
-    <% var totalReturned = collection.pageInfo().total;
-       var returnedMsg = totalReturned > 0 ? "找到了" + totalReturned : "呃！没有相关的" %>
-    <div class='result-message'><%= returnedMsg + "工作信息" %></div>
-    <% _.each(collection.models, function(m) { %>
-      <div class='ad-main'>
-        <div class="title">
-          <h4><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></h4>
-        </div>
-        <% if(m.get('link')) { %>
-        <div class="source">
-          来自于 <a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
-        </div>
-        <% } %>
-        <div class="row details">
-            <div class="span3"><b><%= m.get('company') %></b></div>
-            <div class="span2"><%= m.get('posted_at') %></div>
-        </div>
-        <div class="body-preview">
-          <%= m.bodyPreview() %>
-        </div>
-      </div>
-    <% }) %> 
-    </div>
+    <div id="offered-ads"></div>
+    <div id="paginator"></div>
   </div>
 </div>

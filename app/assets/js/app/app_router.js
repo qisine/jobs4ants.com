@@ -6,10 +6,9 @@ App.AppRouter = Backbone.Router.extend({
   },
 
   initialize: function() {
-    var vM = this.vM = App.viewManager;
+    this.appBody = new App.Views.AppBody;
     var self = this;
 
-    this.appBody = new App.Views.AppBody;
     //numeric ids
     this.route(/^offered-ads\/(\d+)[\/#]?$/, "showOfferedAd");
     this.route(/^offered-ads\/(\d+)\/edit[\/#]?/, "editOfferedAd");
@@ -24,7 +23,7 @@ App.AppRouter = Backbone.Router.extend({
     App.dispatcher.on("offered_ad:edited", function(id) {
       self.navigate("offered-ads/" + id, {trigger: true});
     });
-    App.dispatcher.on("home:search:submit show_offered_ad:search:submit", function(d) {
+    App.dispatcher.on("home:search:submit search:submit", function(d) {
       var kwds = d.kwds;
       var splat = $.trim(kwds);
       self.searchOfferedAds(splat ? "s/" + kwds : "");
@@ -32,63 +31,33 @@ App.AppRouter = Backbone.Router.extend({
   },
 
   home: function() {
-    var v = new App.Views.Home();
-    this.appBody.$el.html(this.vM.add(v).render().el);
+    this.appBody.home();
   },
 
   searchOfferedAds: function(splat) {
     var params = this.paramsFromSplat(decodeURIComponent(splat)), cats = this.parseArrayParam(params.cats); 
     console.log("splat => ", splat, "|params =>", params, "|cats =>", cats);
-    App.dispatcher.trigger("kwds:change", $.trim(params.kwds));
-    App.dispatcher.trigger("cats:change", cats);
-    var v = new App.Views.OfferedAds({kwds: params.kwds, page: params.page, cats: _.clone(cats)});
-    this.appBody.$el.html(this.vM.add(v).el);
+    this.appBody.offeredAds({kwds: params.kwds, page: params.page, cats: cats});
   },
 
   showOfferedAd: function(id) {
-    var v = new App.Views.ShowOfferedAd({modelId: id });
-    this.appBody.$el.html(this.vM.add(v).el);
+    this.appBody.showOfferedAd(id);
   },
 
   newOfferedAd: function() {
-    var v = new App.Views.NewOfferedAd;
-    this.appBody.$el.html(this.vM.add(v).el);
+    this.appBody.newOfferedAd();
   },
   
   editOfferedAd: function(id) {
-    var self = this;
-    var ad = App.Models.OfferedAd.create({id: id});
-    ad.fetch({
-      success: function() {
-        var v = new App.Views.EditOfferedAd({model: ad});
-        self.appBody.$el.html(self.vM.add(v).el);
-      },
-      error: this.appBody.handleError,
-    });
+    this.appBody.editOfferedAd(id);
   },
 
   publishOfferedAd: function(id) {
-    var self = this;
-    var ad = App.Models.OfferedAd.create({id: id});
-    ad.fetch({
-      success: function() {
-        var v = new App.Views.PublishOfferedAd({model: ad});
-        self.appBody.$el.html(self.vM.add(v).render().el);
-      },
-      error: this.appBody.handleError,
-    });
+    this.appBody.publishOfferedAd(id);
   },
 
   deleteOfferedAd: function(id) {
-    var self = this;
-    var ad = App.Models.OfferedAd.create({id: id});
-    ad.fetch({
-      success: function() {
-        var v = new App.Views.DeleteOfferedAd({model: ad});
-        self.appBody.$el.html(self.vM.add(v).render().el);
-      },
-      error: this.appBody.handleError,
-    });
+    this.appBody.deleteOfferedAd(id);
   },
 
 

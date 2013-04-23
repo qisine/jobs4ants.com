@@ -6,7 +6,9 @@ App.Views.DeleteOfferedAd = App.Views.J4AView.extend({
   },
 
   initialize: function() {
-    this.model = this.options.model;
+    this.model.fetch().done(this.render);
+    App.Views.J4AView.prototype.initialize.apply(this);
+    _.bindAll(this, "render");
   },
 
   handleConfirm: function(ev) {
@@ -26,7 +28,4 @@ App.Views.DeleteOfferedAd = App.Views.J4AView.extend({
     this.$el.html(this.tmpl({model: this.model}));
     return this;
   },
-
-  onClose: function() {
-  }
 });
