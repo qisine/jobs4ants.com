@@ -49,8 +49,9 @@ App.Views.NewEditBaseAd = App.Views.J4AView.extend({
       },
       error: function(error) {
         self.toggleEnableCtrls(true);
-        this.notifyError("存贴中没成功。。。");
+        self.notifyError("存贴没成功。。。");
       },
+      noDefaultErrorHandling: true,
     });
   },
 
