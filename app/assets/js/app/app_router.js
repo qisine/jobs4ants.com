@@ -24,7 +24,7 @@ App.AppRouter = Backbone.Router.extend({
     _.bindAll(this, "navigateTo", "searchOfferedAds");
     App.dispatcher.on("reroute", this.navigateTo);
     App.dispatcher.on("offered_ad:edited", function(id) {
-      self.navigate(this.locale + "offered-ads/" + id, {trigger: true});
+      self.navigate(self.locale + "/offered-ads/" + id, {trigger: true});
     });
     App.dispatcher.on("home:search:submit search:submit", function(d) {
       var kwds = d.kwds;
