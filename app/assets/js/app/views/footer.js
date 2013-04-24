@@ -5,6 +5,7 @@ App.Views.Footer = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "render");
+    Backbone.history.on("route", this.render);
   },
 
   render: function() {
