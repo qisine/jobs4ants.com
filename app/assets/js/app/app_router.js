@@ -1,5 +1,5 @@
 App.AppRouter = Backbone.Router.extend({
-  routes: { },
+  localeRegexp: /^zh|de|en(?=\/|$)/,
 
   initialize: function() {
     this.setLocale();
@@ -10,7 +10,7 @@ App.AppRouter = Backbone.Router.extend({
     var self = this;
 
     //numeric ids
-    this.route(/^(?:(zh|de|en)\/?)?$/, "home");
+    this.route(/^(?:(zh|de|en)\/?)?\/?$/, "home");
     this.route(/^(?:(zh|de|en)\/)?offered-ads\/?$/, "searchOfferedAds");
     this.route(/^(?:(zh|de|en)\/)?offered-ads\/new/, "newOfferedAd");
     this.route(/^(?:(zh|de|en)\/)?offered-ads\/(\d+)[\/#]?$/, "showOfferedAd");
@@ -34,9 +34,13 @@ App.AppRouter = Backbone.Router.extend({
     App.dispatcher.on("locale:changed", function(newLocale) {
       $.ajax({ type: "POST", url: "/d/locales", data: newLocale, dataType: "json"})
         .done(function() {
-          App.currentLocale = newLocale;
-          var currentRoute = Backbone.history.fragment;
-          var newRoute = currentRoute.replace(/^zh|de|en(?=\/|$)/, newLocale);
+          var currentRoute = Backbone.history.fragment, newRoute;
+          self.setLocale(newLocale);
+          if(self.localeRegexp.exec(currentRoute)) 
+            newRoute = currentRoute.replace(self.localeRegexp, newLocale);
+          else
+            newRoute = newLocale + "/" + currentRoute;
+          console.log('new locale->', newLocale, 'reroute->', newRoute);
           self.header.render();
           self.footer.render();
           self.navigate(newRoute, {trigger: true});
@@ -86,7 +90,8 @@ App.AppRouter = Backbone.Router.extend({
   },
 
   setLocale: function(locale) {
-    App.currentLocale = this.locale = locale || App.defaultLocale;
+    var l = locale || this.locale || App.defaultLocale;
+    App.currentLocale = this.locale = l;
   },
 
   navigateTo: function(data) {
