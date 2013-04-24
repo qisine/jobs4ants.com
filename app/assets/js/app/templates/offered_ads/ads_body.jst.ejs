@@ -4,7 +4,7 @@
 <% _.each(collection.models, function(m) { %>
 <div class='ad-main'>
   <div class="title">
-    <h4><a href="/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></h4>
+    <h4><a href="/<%= App.currentLocale %>/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></h4>
   </div>
   <% if(m.get('link')) { %>
   <div class="source">

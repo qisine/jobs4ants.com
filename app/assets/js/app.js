@@ -18,7 +18,7 @@ _.extend(window.App, {
   dispatcher: _.extend({}, Backbone.Events),
   htmlEscape: function(str) { return $("<div/>").text(str).html() },
   emailRegexp: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/,
-  defaultLocale: "en",
+  defaultLocale: "zh",
 });
 
 App.init();

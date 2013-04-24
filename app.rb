@@ -20,6 +20,9 @@ ROOT_DOMAIN = production? ? "http://jobs4ants.com" : "http://0.0.0.0:9292"
 EMAIL_CONFIG = File.join(File.dirname(__FILE__), "/config/email.yml")
 EMAIL_TEMPLATE = File.join(File.dirname(__FILE__), "/app/email/confirmation_notification.txt")
 
+LOCALES = ["zh", "de", "en"]
+DEFAULT_LOCALE = "zh"
+
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
 set :session_secret, "an94we8gha048hq92h8g3HOWSObuuoawuo"
@@ -123,6 +126,18 @@ delete %r{/d/offered-ads/(\d+)} do |id|
     status 500
     json({message: "could not delete ad"})
    end 
+end
+
+post '/d/locales' do
+  newLocale = request.env['rack.input'].read.try :strip
+  logger.info("newLocale->#{newLocale}")
+  if(LOCALES.index(newLocale))
+    session[:locale] = newLocale
+    json({locale: newLocale})
+  else
+    status 404
+    json({message: "locale not found"})
+  end
 end
 
 helpers do

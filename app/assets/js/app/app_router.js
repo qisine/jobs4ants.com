@@ -1,9 +1,12 @@
 App.AppRouter = Backbone.Router.extend({
-  routes: {
-  },
+  routes: { },
 
   initialize: function() {
+    this.setLocale();
     this.appBody = new App.Views.AppBody;
+    this.header = (new App.Views.Header).render();
+    this.footer = (new App.Views.Footer).render();
+
     var self = this;
 
     //numeric ids
@@ -27,6 +30,21 @@ App.AppRouter = Backbone.Router.extend({
       var kwds = d.kwds;
       var splat = $.trim(kwds);
       self.searchOfferedAds(self.locale, splat ? "s/" + kwds : "");
+    });
+    App.dispatcher.on("locale:changed", function(newLocale) {
+      $.ajax({ type: "POST", url: "/d/locales", data: newLocale, dataType: "json"})
+        .done(function() {
+          App.currentLocale = newLocale;
+          var currentRoute = Backbone.history.fragment;
+          var newRoute = currentRoute.replace(/^zh|de|en(?=\/|$)/, newLocale);
+          self.header.render();
+          self.footer.render();
+          self.navigate(newRoute, {trigger: true});
+        })
+        .fail(function() {
+          var v = new App.Views.Notification({message: "啊呀！不能选择这语言", level: "error"}).render();
+          v.$el.prependTo("#app-body").fadeOut(1500, function() { $(this).remove() });
+        });
     });
   },
 

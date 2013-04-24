@@ -1,0 +1,16 @@
+<div class='row-fluid'>
+  <nav id="main-nav" class='span10'>
+    <div class="row">
+      <div class="span2"><a href="/"><img src="/i/logo_small.png" /></a></div>
+      <div class="span2"><a href="/offered-ads">浏览招聘贴</a></div>
+      <div class="span2"><a href="/offered-ads/new">创建新招聘贴</a></div>
+    </div>
+  </nav>
+  <nav id='lang-nav' class='span2'>
+    <ul class='unstyled'>
+      <% _.each(['en','de','zh'], function(l) { %>
+        <li><a href='#' class='<%= l === App.currentLocale ? "disabled" : "" %>'><%= l %>
+      <% }) %>
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,30 @@
+header {
+  #main-nav {
+    img {
+      height: 3em;
+      border-bottom: 3px solid #008080
+    }
+
+    > .row > div:not(:first-child) {
+      vertical-align:middle;
+      display:inline-block;
+      line-height: 3em;
+      text-align:center;
+      margin: 0 .5em 0;
+      border-bottom: 3px solid #00C0C0
+    }
+  }
+
+  #lang-nav {
+    li {
+      float: right;
+      border-left: 3px solid #00C0C0;
+      padding: .2em .3em;
+      margin: .3em 0;
+    }
+
+    li:last-child {
+      border: none;
+    }
+  }
+}
