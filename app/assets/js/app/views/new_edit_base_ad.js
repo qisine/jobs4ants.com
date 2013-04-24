@@ -9,10 +9,6 @@ App.Views.NewEditBaseAd = App.Views.J4AView.extend({
     App.Views.J4AView.prototype.initialize.apply(this, arguments);
 
     var c = this.cats = new App.Collections.JobCategories;
-    c.fetch({
-      success: this.render,
-      error: this.handleError,
-    });
   },
 
   handleSubmit: function(ev) {

@@ -6,6 +6,10 @@ App.Views.NewOfferedAd = App.Views.NewEditBaseAd.extend({
   initialize: function() {
     _.bindAll(this, "handleSuccess");
     App.Views.NewEditBaseAd.prototype.initialize.apply(this, arguments); 
+    this.cats.fetch({
+      success: this.render,
+      error: this.handleError,
+    });
   },
 
   handleSuccess: function(model, response) {
