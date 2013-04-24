@@ -3,6 +3,7 @@
 /log/*.log
 /tmp
 .sass-cache
+app/assets/images
 
 config/database.yml
 config/email.yml
