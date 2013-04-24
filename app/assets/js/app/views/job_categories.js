@@ -30,7 +30,6 @@ App.Views.JobCategories = Backbone.View.extend({
   render: function() {
     this.$el.html(this.tmpl({models: this.collection.models}))
     var self = this;
-    console.log('catss->', this.cats);
     if(this.cats && this.cats.length > 0) {
       this.$el
         .find("input[type='checkbox']")
