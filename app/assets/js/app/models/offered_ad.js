@@ -1,15 +1,5 @@
 App.Models.OfferedAd = Backbone.Model.extend({
   previewLength: 150,
-  translations: {
-    "email": "邮箱",
-    "company": "公司",
-    "job_category": "行业",
-    "work_location_zip": "工作低点",
-    "title": "标题",
-    "body": "内容",
-    "job_category_id": "行业",
-    "sqc": "安全问题",
-  },
 
   constructor: function(attributes, options) {
     if(attributes && attributes.id) {
@@ -32,11 +22,12 @@ App.Models.OfferedAd = Backbone.Model.extend({
 
   validate: function(attrs, opts) {
     var a = attrs, self = this, errors = [];
-    _.each(["company", "job_category_id", "title", "body"], function(e) {
-      if(!a[e] && (e !== "email" || !this.isNew())) errors.push(self.translations[e] + "不能为空");
-    });
+    _.each(["email", "company", "title", "body"], function(e) {
+      if(!a[e] && (e !== "email" || this.isNew())) errors.push(TR("ad." + e) + " " + TR("errors.cannot_be_empty"));
+    }, this);
+    if(!attrs.job_category_id) errors.push(TR("ad.job_category") + " " + TR("errors.cannot_be_empty"));
     if(attrs.email && !App.emailRegexp.exec(attrs.email.toUpperCase()))
-      errors.push(this.translations.email + "不是正确的邮箱地址");
+      errors.push(TR("ad.email") + " " + TR("errors.incorrect_format"));
 
     if(errors.length > 0) return errors;
   },

@@ -21,7 +21,7 @@ App.Views.DeleteOfferedAd = App.Views.J4AView.extend({
     var self = this;
     this.model.destroy({
       success: function(model, response) {
-        var message = "好啊！你的帖子已被删除。。。";
+        var message = TR('delete.confirm');
         self.$el.prepend(new App.Views.Notification({message: message, level: "success"}).render().$el);
         self.$el.find(".btn").attr("disabled", "disabled");
       },

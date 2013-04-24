@@ -5,13 +5,13 @@
     </div>
     <div class="details">
       <div class="company">
-        公司: <%= model.get('company') %>
+        <%= TR('ad.company') %>: <%= model.get('company') %>
       </div>
       <div class="work-location">
-        工作低点: <%= model.get('work_location').get('city') %>
+        <%= TR('ad.work_location') %>: <%= model.get('work_location').get('city') %>
       </div>
       <div class="date">
-        发表于: <%= model.get('posted_at') %>
+        <%= TR('ad.posted_at') %>: <%= model.get('posted_at') %>
       </div>
     </div>
     <div class="body">

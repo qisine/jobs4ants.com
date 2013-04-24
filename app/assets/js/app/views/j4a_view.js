@@ -3,9 +3,9 @@
 
 App.Views.J4AView = Backbone.View.extend({
   errorMessages: {
-    401: "授权没通过",
-    404: "找不到这个东东 :(",
-    default: "呃，系统出错。。。不好意思！",
+    401: "errors.authorization",
+    404: "errors.not_found",
+    default: "errors.generic",
   },
 
   initialize: function() {
@@ -37,8 +37,8 @@ App.Views.J4AView = Backbone.View.extend({
   },
 
   handleError: function(model, error) {
-    var msg = error && this.errorMessages[error.status];
-    this.notifyError(msg || this.errorMessages.default);
+    var msg = error && TR(this.errorMessages[error.status]);
+    this.notifyError(msg || TR(this.errorMessages.default));
   },
 
   onClose: function() {

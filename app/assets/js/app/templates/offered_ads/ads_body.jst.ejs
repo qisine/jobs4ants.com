@@ -1,6 +1,6 @@
 <% var totalReturned = collection.pageInfo().total;
-   var returnedMsg = totalReturned > 0 ? "找到了" + totalReturned : "呃！没有相关的" %>
-<div class='result-message'><%= returnedMsg + "工作信息" %></div>
+   var returnedMsg = totalReturned > 0 ? totalReturned + " " + TR('ads.found') : TR('ads.none_found') %>
+<div class='result-message'><%= returnedMsg %></div>
 <% _.each(collection.models, function(m) { %>
 <div class='ad-main'>
   <div class="title">
@@ -8,7 +8,7 @@
   </div>
   <% if(m.get('link')) { %>
   <div class="source">
-    来自于 <a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
+    <%= TR('ads.source') %><a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
   </div>
   <% } %>
   <div class="row details">

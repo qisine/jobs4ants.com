@@ -21,7 +21,7 @@ App.Views.NewEditBaseAd = App.Views.J4AView.extend({
 
     var sqc = $.trim(this.$el.find("#sqc").val());
     if(!sqc || sqc.toLowerCase() !== "bern") {
-      this.notifyError("安全问题回答不对！");
+      this.notifyError(TR("form.sq_incorrect"));
       return;
     }
 
@@ -46,7 +46,7 @@ App.Views.NewEditBaseAd = App.Views.J4AView.extend({
       },
       error: function(error) {
         self.toggleEnableCtrls(true);
-        self.notifyError("存贴没成功。。。");
+        self.notifyError("form.no_success");
       },
       noDefaultErrorHandling: true,
     });
