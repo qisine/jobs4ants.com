@@ -2,6 +2,12 @@
 //=require ../view_collection
 
 App.Views.J4AView = Backbone.View.extend({
+  errorMessages: {
+    401: "授权没通过",
+    404: "找不到这个东东 :(",
+    default: "呃，系统出错。。。不好意思！",
+  },
+
   initialize: function() {
     _.bindAll(this, "handleError");
     this.subviews = new App.ViewCollection;
@@ -30,8 +36,9 @@ App.Views.J4AView = Backbone.View.extend({
     this.notify(message, "error"); 
   },
 
-  handleError: function(error) {
-    this.notifyError(error);
+  handleError: function(model, error) {
+    var msg = error && this.errorMessages[error.status];
+    this.notifyError(msg || this.errorMessages.default);
   },
 
   onClose: function() {
