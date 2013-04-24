@@ -1,8 +1,5 @@
 App.AppRouter = Backbone.Router.extend({
   routes: {
-    "(/)": "home",
-    "offered-ads(/)": "searchOfferedAds",
-    "offered-ads/new": "newOfferedAd",
   },
 
   initialize: function() {
@@ -10,61 +7,74 @@ App.AppRouter = Backbone.Router.extend({
     var self = this;
 
     //numeric ids
-    this.route(/^offered-ads\/(\d+)[\/#]?$/, "showOfferedAd");
-    this.route(/^offered-ads\/(\d+)\/edit[\/#]?/, "editOfferedAd");
-    this.route(/^offered-ads\/(\d+)\/publish[\/#]?/, "publishOfferedAd");
-    this.route(/^offered-ads\/(\d+)\/delete[\/#]?/, "deleteOfferedAd");
+    this.route(/^(?:(zh|de|en)\/?)?$/, "home");
+    this.route(/^(?:(zh|de|en)\/)?offered-ads\/?$/, "searchOfferedAds");
+    this.route(/^(?:(zh|de|en)\/)?offered-ads\/new/, "newOfferedAd");
+    this.route(/^(?:(zh|de|en)\/)?offered-ads\/(\d+)[\/#]?$/, "showOfferedAd");
+    this.route(/^(?:(zh|de|en)\/)?offered-ads\/(\d+)\/edit[\/#]?/, "editOfferedAd");
+    this.route(/^(?:(zh|de|en)\/)?offered-ads\/(\d+)\/publish[\/#]?/, "publishOfferedAd");
+    this.route(/^(?:(zh|de|en)\/)?offered-ads\/(\d+)\/delete[\/#]?/, "deleteOfferedAd");
 
     //all other params
-    this.route(/^offered-ads\/((?!\d+|new[\/#]?).+)$/,   "searchOfferedAds");
+    this.route(/^(?:(zh|de|en)\/)?offered-ads\/((?!\d+|new[\/#]?).+)$/,   "searchOfferedAds");
 
     _.bindAll(this, "navigateTo", "searchOfferedAds");
     App.dispatcher.on("reroute", this.navigateTo);
     App.dispatcher.on("offered_ad:edited", function(id) {
-      self.navigate("offered-ads/" + id, {trigger: true});
+      self.navigate(this.locale + "offered-ads/" + id, {trigger: true});
     });
     App.dispatcher.on("home:search:submit search:submit", function(d) {
       var kwds = d.kwds;
       var splat = $.trim(kwds);
-      self.searchOfferedAds(splat ? "s/" + kwds : "");
+      self.searchOfferedAds(self.locale, splat ? "s/" + kwds : "");
     });
   },
 
-  home: function() {
+  home: function(locale) {
+    this.setLocale(locale);
     this.appBody.home();
   },
 
-  searchOfferedAds: function(splat) {
+  searchOfferedAds: function(locale, splat) {
+    this.setLocale(locale);
     var params = this.paramsFromSplat(decodeURIComponent(splat)), cats = this.parseArrayParam(params.cats); 
-    console.log("splat => ", splat, "|params =>", params, "|cats =>", cats);
+    console.log('locale =>', locale,"|splat => ", splat, "|params =>", params, "|cats =>", cats);
     this.appBody.offeredAds({kwds: params.kwds, page: params.page, cats: cats});
   },
 
-  showOfferedAd: function(id) {
+  showOfferedAd: function(locale, id) {
+    this.setLocale(locale);
     this.appBody.showOfferedAd(id);
   },
 
-  newOfferedAd: function() {
+  newOfferedAd: function(locale) {
+    this.setLocale(locale);
     this.appBody.newOfferedAd();
   },
   
-  editOfferedAd: function(id) {
+  editOfferedAd: function(locale, id) {
+    this.setLocale(locale);
     this.appBody.editOfferedAd(id);
   },
 
-  publishOfferedAd: function(id) {
+  publishOfferedAd: function(locale, id) {
+    this.setLocale(locale);
     this.appBody.publishOfferedAd(id);
   },
 
-  deleteOfferedAd: function(id) {
+  deleteOfferedAd: function(locale, id) {
+    this.setLocale(locale);
     this.appBody.deleteOfferedAd(id);
   },
 
+  setLocale: function(locale) {
+    App.currentLocale = this.locale = locale || App.defaultLocale;
+  },
 
   navigateTo: function(data) {
     var url = this.constructor.urlBuilder(data) || "";
-    console.log('reroute to =>', url);
-    this.navigate('offered-ads/' + url); //for right now, assuming offered ads is the only resource
+    console.log('reroute to =>', this.locale, url);
+    this.navigate(this.locale + '/offered-ads/' + url); 
   },
 
   paramsFromSplat: function(splat) {

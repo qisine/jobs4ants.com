@@ -65,7 +65,7 @@ get '/d/job-categories' do
   json(JobCategory.all.map(&:to_h))
 end
 
-get %r{/offered-ads/(\d+)/(edit|delete|publish)} do |id, action|
+get %r{/(?:(zh|de|en)/)?offered-ads/(\d+)/(edit|delete|publish)} do |locale, id, action|
   ad = load_and_authorize(id, params[:uuid])
   halt 401 if !ad
 
@@ -79,7 +79,9 @@ get %r{/offered-ads/(\d+)/(edit|delete|publish)} do |id, action|
   erb :index
 end
 
-get %r{^/(?!d/).*} do
+get %r{^/(?:(zh|de|en))?.*} do |locale|
+  session[:locale] = locale
+  logger.info("locale=>#{locale}")
   erb :index
 end
 
