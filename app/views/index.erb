@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/assets/app.css" type="text/css" media="all" />
     <script type="text/javascript" src="/assets/app.js"></script> 
     <script type="text/javascript">
-      App.currentLocale = "<%= @locale %>"; 
+      window.App = window.App || {};
+      window.App.currentLocale = "<%= @locale %>"; 
     </script> 
     <title>工作蚂蚁</title>
   </head>
