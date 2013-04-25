@@ -26,7 +26,7 @@ module Mayi
   end
 
   def self.fetch_page(url)
-    doc = Nokogiri::HTML(open(url))
+    doc = Nokogiri::HTML(Nokogiri::HTML(open(url)).inner_html.gsub(/<\s*br\s*\/?\s*>/, "\n"))
     dt = doc.css("div[class='pi'] > div[class='pti'] > div[class='authi'] > em").first.text.strip
     dt = dt =~ /[\d\s:-]+/ ? $&.strip : dt
     usr = doc.css("table tr div[class='pi'] > div[class='authi'] > a[class='xw1']").first.text.strip
