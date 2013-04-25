@@ -69,14 +69,13 @@ get '/d/job-categories' do
 end
 
 get %r{/(?:(zh|de|en)/)?offered-ads/(\d+)/(edit|delete|publish)} do |locale, id, action|
-  current_locale(locale)
+  @locale = current_locale(locale)
   ad = load_and_authorize(id, params[:uuid])
   halt 401 if !ad
 
   if(action == "publish")
     ad.update_attributes!(published: true, posted_at: Time.now)
   else
-    session[:uuid] ||= {}
     session[:uuid] = ad.uuid
   end
 
@@ -84,7 +83,8 @@ get %r{/(?:(zh|de|en)/)?offered-ads/(\d+)/(edit|delete|publish)} do |locale, id,
 end
 
 get %r{^/(?:(zh|de|en))?.*} do |locale|
-  current_locale(locale)
+  logger.info("session=>#{session[:locale]}")
+  @locale = current_locale(locale)
   logger.info("locale=>#{current_locale}")
   erb :index
 end

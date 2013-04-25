@@ -90,7 +90,7 @@ App.AppRouter = Backbone.Router.extend({
   },
 
   setLocale: function(locale) {
-    var l = locale || this.locale || App.defaultLocale;
+    var l = locale || this.locale || App.currentLocale || App.defaultLocale;
     App.currentLocale = this.locale = l;
   },
 
