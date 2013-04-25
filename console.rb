@@ -7,6 +7,6 @@ require './app/models/base_ad.rb'
 Dir["./app/models/*.rb"].each { |f| require f }
 
 ActiveRecord::Base.configurations = YAML::load(IO.read('config/database.yml'))
-ActiveRecord::Base.establish_connection("development")
+ActiveRecord::Base.establish_connection(ENV["J4A_ENV"] || "development")
 
 IRB.start(__FILE__)
