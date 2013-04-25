@@ -1,6 +1,6 @@
 <div id='delete-offered-ad'>
-  <div><%= TR('delete.are_you_sure') %></div>
-  <div><b><%= model.get('title') %></b></div>
+  <div><h4><%= TR('delete.are_you_sure') %></h4></div>
+  <div>[<a href='<%= App.p("/offered-ads/" + model.get("id")) %>'><%= model.get('title') %></a>]</div>
   <div class='form-actions'><button class="btn btn-primary btn-large"><%= TR('actions.yes') %></button>
   <a href='<%= App.p("/") %>' class="btn btn-large"><%= TR('actions.cancel') %></a></div>
 <div>
