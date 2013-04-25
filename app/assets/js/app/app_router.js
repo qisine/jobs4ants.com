@@ -95,9 +95,10 @@ App.AppRouter = Backbone.Router.extend({
   },
 
   navigateTo: function(data) {
-    var url = this.constructor.urlBuilder(data) || "";
-    console.log('reroute to =>', this.locale, url);
-    this.navigate(this.locale + '/offered-ads/' + url); 
+    var url = this.constructor.urlBuilder(data) || "", replace;
+    if(/offered-ads\/?$/.exec(Backbone.history.fragment)) replace = true;
+    console.log('reroute to =>', this.locale, url, 'replace->', replace);
+    this.navigate(this.locale + '/offered-ads/' + url, {replace: replace}); 
   },
 
   paramsFromSplat: function(splat) {
