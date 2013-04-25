@@ -1,6 +1,6 @@
 .bundle
 .sass-cache
-/log/*.log
+log
 /tmp
 .sass-cache
 app/assets/images
