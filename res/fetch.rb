@@ -105,9 +105,7 @@ def fetch_all(src, from=1, to=50, &block)
     links.map do |l|
       begin
         h = src::fetch_page(l) 
-        if block
-          return if !block.call(h) 
-        end
+        block.call(h) if block
       rescue Exception => e
         STDERR.puts("page:level =>", e)
       end
@@ -118,7 +116,7 @@ end
 
 def process_bg
   [Mayi, Swissinfo].each do |src|
-    fetch_all(src) { |h| J4ADb::save_to_db(h) }
+    fetch_all(src, 1, 10) { |h| J4ADb::save_to_db(h) }
   end
 end
 
