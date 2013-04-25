@@ -1,0 +1,16 @@
+<div class='row-fluid'>
+  <nav id="main-nav" class='span10'>
+    <div class="row">
+      <div class="span2"><a href="<%= App.p('/') %>"><img src="/i/logo_small.png" /></a></div>
+      <div class="span2"><a href="<%= App.p('/offered-ads') %>"><%= TR('nav.browse') %></a></div>
+      <div class="span2"><a href="<%= App.p('/offered-ads/new') %>"><%= TR('nav.new_ad') %></a></div>
+    </div>
+  </nav>
+  <nav id='lang-nav' class='span2'>
+    <ul class='unstyled'>
+      <% _.each(['en','de','zh'], function(l) { %>
+        <li><a href='#' class='<%= l === App.currentLocale ? "disabled" : "" %>'><%= l %>
+      <% }) %>
+    </ul>
+  </nav>
+</div>

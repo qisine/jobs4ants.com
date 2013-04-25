@@ -5,21 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="/assets/app.css" type="text/css" media="all" />
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <script type="text/javascript" src="/assets/app.js"></script> 
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      window.App = window.App || {};
+      window.App.currentLocale = "<%= @locale %>"; 
+    </script> 
     <title>工作蚂蚁</title>
   </head>
   <body>
     <div id="content-container">
       <header>
-        <nav id="main-nav">
-          <div class="row">
-            <div class="span2"><a href="/"><img src="/i/logo_small.png" /></a></div>
-            <div class="span2"><a href="/offered-ads">浏览招聘贴</a></div>
-            <div class="span2"><a href="/offered-ads/new">创建新招聘贴</a></div>
-          </div>
-        </nav>
       </header>
       <div id="app-body">
       </div>
@@ -27,7 +22,6 @@
       <div id="pusher"></div>
     </div>
     <footer>
-      <a href="/"><img src="/i/icon.png" alt="icon" /></a> jobs4ants.com by sk | contact: cs@[this domain]
     </footer>
   </body>
 </html>

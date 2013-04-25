@@ -18,7 +18,10 @@ end
 
 ROOT_DOMAIN = production? ? "http://jobs4ants.com" : "http://0.0.0.0:9292"
 EMAIL_CONFIG = File.join(File.dirname(__FILE__), "/config/email.yml")
-EMAIL_TEMPLATE = File.join(File.dirname(__FILE__), "/app/email/confirmation_notification.txt")
+EMAIL_TEMPLATE = File.join(File.dirname(__FILE__), "/app/email/confirmation_notification.%s.yml")
+
+LOCALES = ["zh", "de", "en"]
+DEFAULT_LOCALE = "zh"
 
 set :views, Proc.new { File.join(root, "app", "views") }
 enable :sessions
@@ -65,21 +68,24 @@ get '/d/job-categories' do
   json(JobCategory.all.map(&:to_h))
 end
 
-get %r{/offered-ads/(\d+)/(edit|delete|publish)} do |id, action|
+get %r{/(?:(zh|de|en)/)?offered-ads/(\d+)/(edit|delete|publish)} do |locale, id, action|
+  @locale = current_locale(locale)
   ad = load_and_authorize(id, params[:uuid])
   halt 401 if !ad
 
   if(action == "publish")
     ad.update_attributes!(published: true, posted_at: Time.now)
   else
-    session[:uuid] ||= {}
     session[:uuid] = ad.uuid
   end
 
   erb :index
 end
 
-get %r{^/(?!d/).*} do
+get %r{^/(?:(zh|de|en))?.*} do |locale|
+  logger.info("session=>#{session[:locale]}")
+  @locale = current_locale(locale)
+  logger.info("locale=>#{current_locale}")
   erb :index
 end
 
@@ -123,6 +129,18 @@ delete %r{/d/offered-ads/(\d+)} do |id|
    end 
 end
 
+post '/d/locales' do
+  newLocale = request.env['rack.input'].read.try :strip
+  logger.info("newLocale->#{newLocale}")
+  if(LOCALES.index(newLocale))
+    current_locale(newLocale)
+    json({locale: newLocale})
+  else
+    status 404
+    json({message: "locale not found"})
+  end
+end
+
 helpers do
   def parse_json(json)
     j = JSON.parse(json)
@@ -160,16 +178,26 @@ helpers do
     config[:via_options] = via_opts 
 
     links = ["publish", "edit", "delete"].map { |action|
-      "#{ROOT_DOMAIN}/offered-ads/#{ad.id}/#{action}?uuid=#{ad.uuid}"
+      "#{ROOT_DOMAIN}/#{current_locale}/offered-ads/#{ad.id}/#{action}?uuid=#{ad.uuid}"
     }
-    text = sprintf(IO.read(EMAIL_TEMPLATE), *links)
+    template = YAML.load(IO.read(sprintf(EMAIL_TEMPLATE, current_locale)))
+    subject = sprintf(template["template"]["subject"], ad.title)
+    body = sprintf(template["template"]["body"], *links)
 
     config[:from] = "cs@jobs4ants.com"
     config[:to] = ad.email
-    config[:body] = text
-    config[:subject] = "激活你的招聘贴 [#{ad.title}]"
+    config[:body] = body
+    config[:subject] = subject
     config[:via] =  :smtp
 
     Pony.mail(config)
+  end
+
+  def current_locale(locale=nil)
+    if(locale)
+      @current_locale = session[:locale] = locale
+    else
+      @current_locale ||= (session[:locale] ||= DEFAULT_LOCALE)
+    end
   end
 end

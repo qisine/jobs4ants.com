@@ -1,0 +1,22 @@
+<% var totalReturned = collection.pageInfo().total;
+   var returnedMsg = totalReturned > 0 ? totalReturned + " " + TR('ads.found') : TR('ads.none_found') %>
+<div class='result-message'><%= returnedMsg %></div>
+<% _.each(collection.models, function(m) { %>
+<div class='ad-main'>
+  <div class="title">
+    <h4><a href="/<%= App.currentLocale %>/offered-ads/<%= m.get('id') %>"><%= m.get('title') %></a></h4>
+  </div>
+  <% if(m.get('link')) { %>
+  <div class="source">
+    <%= TR('ads.source') %><a href="<%= m.get('link') %>" target="_blank"><%= m.get('source') %></a>
+  </div>
+  <% } %>
+  <div class="row details">
+      <div class="span3"><b><%= m.get('company') %></b></div>
+      <div class="span2"><%= m.get('posted_at') %></div>
+  </div>
+  <div class="body-preview">
+    <%= m.bodyPreview() %>
+  </div>
+</div>
+<% }) %> 

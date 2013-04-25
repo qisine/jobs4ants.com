@@ -1,0 +1,19 @@
+template:
+  subject: Publish your ad [%s]
+  body: |
+    Hi!
+
+    Please use the following link to publish your ad:
+    %s
+
+    If you need to edit or delete your ad at any time hereafter, you may use the below links:
+
+    Edit: %s
+    Delete: %s
+
+    Thank you!
+
+    Your Busy Workerant
+
+    ============================
+    http://jobs4ants.com - Chinese Jobs in Switzerland

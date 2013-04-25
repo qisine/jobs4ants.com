@@ -12,12 +12,13 @@ App.Views.Paginator = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, "next", "previous", "goTo", "render");
-    this.collection = (this.options.collection || new App.Collections.OfferedAds);
+    this.collection = this.options.collection;
+    this.collection.on("reset", this.render);
   },
 
   render: function() {
     var t = this.tmpl({ info: this.collection.pageInfo() });
-    this.$el.append(t);
+    this.$el.html(t);
     return this;
   },
     

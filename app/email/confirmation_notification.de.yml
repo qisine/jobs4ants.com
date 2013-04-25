@@ -1,0 +1,19 @@
+template:
+  subject: Freischaltung Ihres Inserats [%s]
+  body: |
+    Guten Tag!
+
+    Bitte klicken Sie auf den folgenden Link, um Ihr Inserat freizuschalten:
+    %s
+
+    Wenn Sie später Ihr Inserat entweder bearbeiten oder löschen möchten, können Sie dazu die folgenden Links benutzen:
+
+    Bearbeiten: %s
+    Löschen: %s
+
+    Vielen Dank nochmals!
+
+    Ihre kleine Arbeiterameise
+
+    ============================
+    http://jobs4ants.com - Chinesische Jobs in der Schweiz

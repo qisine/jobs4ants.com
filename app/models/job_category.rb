@@ -8,7 +8,7 @@ class JobCategory < ActiveRecord::Base
 
   def to_h
     h = {}
-    [:id, :name].each do |e|
+    [:id, :name, :code].each do |e|
       h[e] = (self.attributes[e.to_s] || "").to_s
     end
     h

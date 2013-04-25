@@ -1,13 +1,18 @@
-App.Views.DeleteOfferedAd = Backbone.View.extend({
+App.Views.DeleteOfferedAd = App.Views.J4AView.extend({
   type: "deleteOfferedAd",
   tmpl: JST["js/app/templates/offered_ads/delete"],
-  el: "#app-body",
   events: {
     'click .btn-primary': 'handleConfirm',
   },
 
   initialize: function() {
-    this.model = this.options.model;
+    _.bindAll(this, "render");
+    this.model.fetch().done(this.render);
+    App.Views.J4AView.prototype.initialize.apply(this);
+    this.model.fetch({
+      success: this.render,
+      error: this.handleError,
+    });
   },
 
   handleConfirm: function(ev) {
@@ -16,20 +21,15 @@ App.Views.DeleteOfferedAd = Backbone.View.extend({
     var self = this;
     this.model.destroy({
       success: function(model, response) {
-        var message = "好啊！你的帖子已被删除。。。";
+        var message = TR('delete.confirm');
         self.$el.prepend(new App.Views.Notification({message: message, level: "success"}).render().$el);
         self.$el.find(".btn").attr("disabled", "disabled");
-      },
-      error: function(error) {
-        App.dispatcher.trigger("error:load", error);    
       },
     });
   },
 
   render: function() {
     this.$el.html(this.tmpl({model: this.model}));
+    return this;
   },
-
-  onClose: function() {
-  }
 });

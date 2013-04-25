@@ -1,10 +1,10 @@
 <div id="home">
-  <h2>你今天找什么工作？</h2>
+  <h2><%= TR("home.question") %></h2>
   <form class='form-horizontal'>
     <input id="general-kwds" type="search"</input>
-    <button class='btn'>搜索</button>
+    <button class='btn'><%= TR('actions.search') %></button>
   </form>
   <div id='browse'>
-    或<a href="/offered-ads">浏览招聘信息</a>
+    <a href="<%= App.p('/offered-ads') %>"><%= TR('home.browse') %></a>
   </div>
 </div>  

@@ -1,6 +1,7 @@
-window.App = {
+window.App = window.App || {};
+_.extend(window.App, {
   Collections: {},
   Models: {},
-  Routers: {},
   Views: {},
-};
+  Controllers: {},
+});

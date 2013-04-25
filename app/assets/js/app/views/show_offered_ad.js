@@ -1,44 +1,22 @@
-App.Views.ShowOfferedAd = Backbone.View.extend({
+App.Views.ShowOfferedAd = App.Views.J4AView.extend({
   type: "showOfferedAd",
   tmpl: JST["js/app/templates/offered_ads/show"],
-  el: "#app-body",
 
   initialize: function() {
-    _.extend(this, this.options);
     _.bindAll(this, "render");
-    if(this.modelId) this.fetchModel();
-  },
+    App.Views.J4AView.prototype.initialize.apply(this);
 
-  fetchModel: function() {
-    var m = this.model = App.Models.OfferedAd.create({id: this.modelId});
-    if(m.fromCache) {
-      this.render();
-      console.log('cached model=>', this.model);
-      return;
-    }
-    var self = this;
-    m.on("change", this.render);
-    m.fetch({
-      success: function(resp, status, xhr) {
-        //App.dispatcher.trigger("reroute", {modelId: self.modelId});
-        console.log('fetched model=>', self.model);
-        //self.render();
-      },
-      error: function(error) {
-        console.log("error!", error);
-        App.dispatcher.trigger("error:load", error);
-      },
-    });
+    this.listenTo(this.model, "change", this.render);
+    this.model.fetch();
   },
 
   render: function() {
     this.$el.html(this.tmpl({model: this.model }));
-    this.vwSearchBar = new App.Views.SearchBar({resetCats: true}).render();
-    this.$el.prepend(this.vwSearchBar.$el);
+    var v = this.subviews.add(new App.Views.SearchBar).render();
+    this.listenTo(v, "search:submit", function(data) {
+      App.dispatcher.trigger("search:submit", data);
+    }),
+    this.$el.prepend(v.el);
     return this;
-  },
-
-  onClose: function() {
-    this.vwSearchBar && this.vwSearchBar.close();
   },
 });

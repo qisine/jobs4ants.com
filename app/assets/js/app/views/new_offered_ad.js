@@ -6,14 +6,18 @@ App.Views.NewOfferedAd = App.Views.NewEditBaseAd.extend({
   initialize: function() {
     _.bindAll(this, "handleSuccess");
     App.Views.NewEditBaseAd.prototype.initialize.apply(this, arguments); 
+    this.cats.fetch({
+      success: this.render,
+      error: this.handleError,
+    });
   },
 
   handleSuccess: function(model, response) {
     console.log('ad successfully created!');
-    var msg =   "谢谢！我们已把确认邮件发到"
+    var msg =   TR('new.confirm.part_one')
                 + "[" + model.get('email') + "]"
-                + "。请尽快登录你的邮箱，按照里面的指示完成发布你的帖子"
+                + TR('new.confirm.part_two')
     this.resetFields();
-    this.showNotification("success", msg);
+    this.notifySuccess(msg);
   },
 });

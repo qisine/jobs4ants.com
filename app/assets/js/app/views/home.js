@@ -1,7 +1,6 @@
-App.Views.Home = Backbone.View.extend({
+App.Views.Home = App.Views.J4AView.extend({
   type: "home",
   tmpl: JST["js/app/templates/home/index"],
-  el: "#app-body",
   events: {
     "click #home button": "search",
   },
