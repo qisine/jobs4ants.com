@@ -6,9 +6,9 @@ App.Views.DeleteOfferedAd = App.Views.J4AView.extend({
   },
 
   initialize: function() {
+    _.bindAll(this, "render");
     this.model.fetch().done(this.render);
     App.Views.J4AView.prototype.initialize.apply(this);
-    _.bindAll(this, "render");
     this.model.fetch({
       success: this.render,
       error: this.handleError,
